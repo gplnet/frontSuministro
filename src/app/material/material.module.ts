@@ -7,9 +7,16 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
+import { MatPaginatorImpl } from '../_shared/mat-paginator';
+
 
 @NgModule({
   declarations: [],
+  providers:[{provide: MatPaginatorIntl, useClass:MatPaginatorImpl}],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -18,7 +25,12 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSidenavModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule
+
 
   ],
   exports:[
@@ -27,7 +39,11 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSidenavModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule
   ]
 })
 export class MaterialModule { }
