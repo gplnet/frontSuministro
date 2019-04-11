@@ -1,3 +1,35 @@
-<p>
-  equipo-edicion works!
-</p>
+<mat-card>Ingrese los datos del equipo</mat-card>
+
+<br/>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" #loginForm="ngForm">
+
+  <div [hidden]="true">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="ID" required formControlName="id">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Marca" required formControlName="marca">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Modelo" required formControlName="modelo">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Estado" required formControlName="estado" type="number" maxlength="8">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+    <mat-icon>done</mat-icon>
+    <span>Aceptar</span>
+  </button>
+  <button mat-raised-button color="accent" routerLink='/paciente' type="button">
+    <mat-icon>close</mat-icon>
+    <span>Cancelar</span>
+  </button>
+</form>
+
+<br/>

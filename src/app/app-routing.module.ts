@@ -5,7 +5,8 @@ import { EquipoEdicionComponent } from './pages/equipo/equipo-edicion/equipo-edi
 
 const routes: Routes = [
   {path:'equipo', component: EquipoComponent, children: [
-    {path: 'nuevo', component: EquipoEdicionComponent}
+    {path: 'nuevo', component: EquipoEdicionComponent},
+    {path: 'edicion/:id', component: EquipoEdicionComponent}
   ]}
 ];
 

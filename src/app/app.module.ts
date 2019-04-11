@@ -9,6 +9,8 @@ import { MaterialModule } from './material/material.module';
 import { EquipoService } from './_service/equipo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { EquipoEdicionComponent } from './pages/equipo/equipo-edicion/equipo-edicion.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -24,7 +26,9 @@ import { EquipoEdicionComponent } from './pages/equipo/equipo-edicion/equipo-edi
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [EquipoService],
   bootstrap: [AppComponent]

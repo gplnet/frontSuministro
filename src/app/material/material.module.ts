@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import { MatPaginatorImpl } from '../_shared/mat-paginator';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MatPaginatorImpl } from '../_shared/mat-paginator';
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
 
 
   ],
@@ -43,7 +45,8 @@ import { MatPaginatorImpl } from '../_shared/mat-paginator';
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }
