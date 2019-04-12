@@ -13,6 +13,7 @@ export class EquipoService {
 
   url: string = `${HOST}/equipo`;
   equipoCambio = new Subject<Equipo[]>();
+  mensaje = new Subject<string>();
 
 
   constructor( private http: HttpClient) {

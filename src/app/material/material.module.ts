@@ -13,6 +13,7 @@ import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator'
 import {MatInputModule} from '@angular/material/input';
 import { MatPaginatorImpl } from '../_shared/mat-paginator';
 import {MatCardModule} from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
 
 
   ],
@@ -46,7 +48,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

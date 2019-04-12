@@ -4,6 +4,7 @@ import { Equipo } from 'src/app/_model/equipo';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-equipo',
@@ -19,7 +20,7 @@ export class EquipoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   cantidad: number;
 
-  constructor(private eqs: EquipoService) { }
+  constructor(private eqs: EquipoService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.eqs.getListarEquipo(0,5).subscribe(data => {
@@ -34,9 +35,15 @@ export class EquipoComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
     this.eqs.equipoCambio.subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
+      let equipos = JSON.parse(JSON.stringify(data)).content;
+      this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
+
+      this.dataSource = new MatTableDataSource(equipos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    });
+    this.eqs.mensaje.subscribe( data => {
+      this.snackBar.open(data, null, {duration: 2000});
     });
 
 
