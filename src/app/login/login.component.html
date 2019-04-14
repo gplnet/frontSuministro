@@ -1,0 +1,12 @@
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Usuario" [(ngModel)]="usuario">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="password" placeholder="Contraseña" [(ngModel)]="contrasena">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="iniciarSesion()">Iniciar Sesión</button>
+
+</div>

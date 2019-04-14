@@ -20,10 +20,10 @@ export class EquipoEdicionComponent implements OnInit {
     this.equipo = new Equipo();
 
     this.form = new FormGroup({
-      'id': new FormControl(0),
-      'marca': new FormControl(''),
-      'modelo': new FormControl(''),
-      'estado': new FormControl('')
+      'eqp_ide': new FormControl(0),
+      'eqp_mrc': new FormControl(''),
+      'eqp_mdl': new FormControl(''),
+      'eqp_est': new FormControl('')
 
     });
   }
@@ -40,28 +40,29 @@ export class EquipoEdicionComponent implements OnInit {
   private initForm(){
     if(this.edicion){
       this.eqpS.getEquipoPorId(this.id).subscribe(data => {
-        let id = data.Eqp_Ide;
-        let marca = data.Eqp_Mrc;
-        let modelo = data.Eqp_Mdl;
-        let estado = data.Eqp_Est;
+        let id = data.eqp_ide;
+        let marca = data.eqp_mrc;
+        let modelo = data.eqp_mdl;
+        let estado = data.eqp_est;
 
         this.form = new FormGroup({
-          'id': new FormControl(id),
-          'marca': new FormControl(marca),
-          'modelo': new FormControl(modelo),
-          'estado': new FormControl(estado)
+          'eqp_ide': new FormControl(id),
+          'eqp_mrc': new FormControl(marca),
+          'eqp_mdl': new FormControl(modelo),
+          'eqp_est': new FormControl(estado)
         });
       });
     }
   }
-
+//eqp_est
   operar(){
-    this.equipo.Eqp_Ide = this.form.value['id'];
-    this.equipo.Eqp_Mrc = this.form.value['marca'];
-    this.equipo.Eqp_Mdl = this.form.value['modelo'];
-    this.equipo.Eqp_Est = this.form.value['estado'];
+    this.equipo.eqp_ide = this.form.value['eqp_ide'];
+    this.equipo.eqp_mrc = this.form.value['eqp_mrc'];
+    this.equipo.eqp_mdl = this.form.value['eqp_mdl'];
+    this.equipo.eqp_est = this.form.value['eqp_est'];
+    console.log(this.equipo);
 
-    if(this.equipo != null && this.equipo.Eqp_Ide > 0){
+    if(this.equipo != null && this.equipo.eqp_ide > 0){
       //update
       this.eqpS.modificar(this.equipo).subscribe( data =>{
         if(data === 1){
@@ -81,6 +82,7 @@ export class EquipoEdicionComponent implements OnInit {
     }else{
       //insert
       this.eqpS.registrar(this.equipo).subscribe( data =>{
+
         if(data === 1){
           //exito
           this.eqpS.getListarEquipo(0,100).subscribe( equipos => {

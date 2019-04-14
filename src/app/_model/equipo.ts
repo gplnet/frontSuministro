@@ -1,6 +1,6 @@
 export class Equipo {
-  Eqp_Ide: number;
-  Eqp_Mrc: string;
-  Eqp_Mdl: string;
-  Eqp_Est: string;
+  eqp_ide: number;
+  eqp_mrc: string;
+  eqp_mdl: string;
+  eqp_est: string;
 }

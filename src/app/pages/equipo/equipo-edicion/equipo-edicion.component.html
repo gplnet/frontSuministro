@@ -6,27 +6,27 @@
 
   <div [hidden]="true">
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="ID" required formControlName="id">
+      <input matInput placeholder="ID" required formControlName="eqp_ide">
     </mat-form-field>
   </div>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Marca" required formControlName="marca">
+    <input matInput placeholder="Marca" required formControlName="eqp_mrc">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Modelo" required formControlName="modelo">
+    <input matInput placeholder="Modelo" required formControlName="eqp_mdl">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Estado" required formControlName="estado" type="number" maxlength="8">
+    <input matInput placeholder="Estado" required formControlName="eqp_est" type="text">
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
     <mat-icon>done</mat-icon>
     <span>Aceptar</span>
   </button>
-  <button mat-raised-button color="accent" routerLink='/paciente' type="button">
+  <button mat-raised-button color="accent" routerLink='/equipo' type="button">
     <mat-icon>close</mat-icon>
     <span>Cancelar</span>
   </button>
