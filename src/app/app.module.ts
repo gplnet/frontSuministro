@@ -12,6 +12,7 @@ import { EquipoEdicionComponent } from './pages/equipo/equipo-edicion/equipo-edi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './_service/login.services';
+import { GuardService } from './_service/guard.service';
 
 
 
@@ -33,7 +34,7 @@ import { LoginService } from './_service/login.services';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [EquipoService, LoginService],
+  providers: [EquipoService, LoginService, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

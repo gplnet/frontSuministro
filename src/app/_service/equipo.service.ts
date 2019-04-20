@@ -28,17 +28,29 @@ export class EquipoService {
   }
 
   getEquipoPorId(id: number){
-     return this.http.get<Equipo>(`${this.url}/listar/${id}`);
+     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+     return this.http.get<Equipo>(`${this.url}/listar/${id}`,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
   }
 
   registrar(equipo: Equipo){
     console.log('LOLA', equipo);
-    return this.http.post(`${this.url}/registrar`, equipo);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(`${this.url}/registrar`, equipo ,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
   }
   modificar(equipo: Equipo){
-    return this.http.put(`${this.url}/actualizar`, equipo);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(`${this.url}/actualizar`, equipo ,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
   }
   eliminar(equipo: Equipo){
-    return this.http.delete(`${this.url}/eliminar/${equipo.eqp_ide}`);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.delete(`${this.url}/eliminar/${equipo.eqp_ide}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
   }
 }
