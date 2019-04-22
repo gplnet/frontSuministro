@@ -31,5 +31,16 @@ export class LoginService {
     this.router.navigate(['login']);
   }
 
+  isAdmin(){
+    let tk = sessionStorage.getItem(TOKEN_NAME);
+    if (tk != null) {
+      const decodedToken = decode(tk);
+      //console.log(decodedToken);
+      let isAdmin = decodedToken.authorities.some(el => el === 'ROLE_ADMIN');
+      //console.log(isAdmin);
+      return isAdmin;
+    }
+  }
+
 
 }

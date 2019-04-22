@@ -1,0 +1,46 @@
+<!-- *ngIf="isLoggedIn$ | async as isLoggedIn" -->
+<div class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar" >
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+    <h1 class="example-app-name">Suministros</h1>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/perfil">
+            <mat-icon>account_box</mat-icon>
+            <span>Mi Perfil</span>
+        </button>
+        <button mat-menu-item routerLink="/login">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar Sesión</span>
+        </button>
+    </mat-menu>
+    <!-- *ngIf="isLoggedIn$ | async as isLoggedIn" -->
+
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container"  >
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" style="width: 200px" >
+        <img src="assets/municipio.png" width="64">
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/buscar" style="cursor: pointer" >
+          <mat-icon>search</mat-icon>
+          <span>Buscar</span>
+       </button>
+       <mat-divider></mat-divider>
+       <button mat-menu-item (click)="sidenav.toggle()" routerLink="/equipo" style="cursor: pointer" >
+        <mat-icon>accessibility </mat-icon>
+        <span>Equipo</span>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

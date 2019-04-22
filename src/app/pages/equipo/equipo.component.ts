@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-equipo',
@@ -20,7 +21,7 @@ export class EquipoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   cantidad: number;
 
-  constructor(private eqs: EquipoService, private snackBar: MatSnackBar) { }
+  constructor(private eqs: EquipoService, private snackBar: MatSnackBar, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.eqs.getListarEquipo(0,5).subscribe(data => {

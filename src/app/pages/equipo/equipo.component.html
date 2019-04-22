@@ -1,6 +1,7 @@
 <mat-toolbar>Equipos</mat-toolbar>
 <router-outlet></router-outlet>
-<div class="example-container mat-elevation-z8">
+
+<div class="example-container mat-elevation-z8" *ngIf="route.children.length === 0">
   <div class="example-header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Equipo">
