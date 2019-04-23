@@ -14,7 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './_service/login.services';
 import { GuardService } from './_service/guard.service';
 import { Not403Component } from './pages/not403/not403.component';
-import { PagesComponent } from './pages/pages/pages.component';
+import { PagesComponent } from './pages/pages.component';
+
 
 
 
