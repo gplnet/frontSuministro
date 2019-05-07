@@ -47,5 +47,8 @@ eliminar(sEgreso: SuministroEgreso){
     headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
 }
+eplicacion(){
+  //console.log('Buenas noches espero qe estes bien, te extranho y me haces falta solo espero qe te des cuenta de las cosas')
+}
 
 }
