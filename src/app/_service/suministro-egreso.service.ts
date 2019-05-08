@@ -22,33 +22,30 @@ export class SuministroEgresoService {
     });
   }
 
-  getSuministroEgresoPorId(id: number){
+    getSuministroEgresoPorId(id: number){
+      let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+      return this.http.get<SuministroEgreso>(`${this.url}/listar/${id}`,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+  }
+  registrar(sEgreso: SuministroEgreso){
+    console.log('LOLA', sEgreso);
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.get<SuministroEgreso>(`${this.url}/listar/${id}`,{
-     headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-     });
- }
- registrar(sEgreso: SuministroEgreso){
-  console.log('LOLA', sEgreso);
-  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-  return this.http.post(`${this.url}/registrar`, sEgreso ,{
-    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-    });
-}
-modificar(sEgreso: SuministroEgreso){
-  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-  return this.http.put(`${this.url}/actualizar`, sEgreso ,{
-    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-    });
-}
-eliminar(sEgreso: SuministroEgreso){
-  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-  return this.http.delete(`${this.url}/eliminar/${sEgreso.seg_ide}`, {
-    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
-    });
-}
-eplicacion(){
-  //console.log('Buenas noches espero qe estes bien, te extranho y me haces falta solo espero qe te des cuenta de las cosas')
-}
+    return this.http.post(`${this.url}/registrar`, sEgreso ,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+  }
+  modificar(sEgreso: SuministroEgreso){
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(`${this.url}/actualizar`, sEgreso ,{
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+  }
+  eliminar(sEgreso: SuministroEgreso){
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.delete(`${this.url}/eliminar/${sEgreso.seg_ide}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+  }
 
 }

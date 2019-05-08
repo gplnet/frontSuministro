@@ -15,6 +15,7 @@ import { LoginService } from './_service/login.services';
 import { GuardService } from './_service/guard.service';
 import { Not403Component } from './pages/not403/not403.component';
 import { PagesComponent } from './pages/pages.component';
+import { SuministroEgresoComponent } from './pages/suministro-egreso/suministro-egreso.component';
 
 
 
@@ -28,6 +29,7 @@ import { PagesComponent } from './pages/pages.component';
     LoginComponent,
     Not403Component,
     PagesComponent,
+    SuministroEgresoComponent,
 
   ],
   imports: [
