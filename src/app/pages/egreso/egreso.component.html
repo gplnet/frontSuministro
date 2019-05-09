@@ -1,0 +1,41 @@
+
+<mat-toolbar>Registro de Egreso</mat-toolbar>
+<div class="example-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <mat-form-field>
+                    <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
+                      <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
+                        {{ s.suministro }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+            </div>
+            <div class="col-6 col-md-4">
+                <mat-form-field>
+                    <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
+                      <mat-option *ngFor="let d of departamentos" [value]="d.dpr_ide">
+                        {{ d.dpr_nombre }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-6 col-md-4">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Escage una fecha" [max]="maxFecha" [(ngModel)]="fechaSelecionada">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <button class="center" mat-raised-button color="primary" (click)="agregar()">Agregar Egreso</button>
+            <mat-toolbar *ngIf="">No hay egresos agregados</mat-toolbar>
+
+        </div>
+
+    </div>
+
+
+
+</div>
