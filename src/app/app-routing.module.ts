@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { GuardService } from './_service/guard.service';
 import { PagesComponent } from './pages/pages.component';
 import { Not403Component } from './pages/not403/not403.component';
+import { EgresoComponent } from './pages/egreso/egreso.component';
 
 const routes: Routes = [
   {path:'', component: PagesComponent, children: [
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ], canActivate: [GuardService]
   },
+  { path:'egreso', component: EgresoComponent, canActivate: [GuardService]},
   ]},
   { path: 'login', component: LoginComponent },
   { path: '**', component: Not403Component}
