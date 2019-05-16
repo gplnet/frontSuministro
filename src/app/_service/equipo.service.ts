@@ -49,7 +49,7 @@ export class EquipoService {
   }
   eliminar(equipo: Equipo){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.delete(`${this.url}/eliminar/${equipo.eqp_ide}`, {
+    return this.http.delete(`${this.url}/eliminar/${equipo.eqp_Ide}`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }

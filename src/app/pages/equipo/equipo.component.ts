@@ -72,5 +72,18 @@ export class EquipoComponent implements OnInit {
       //this.dataSource.sort = this.sort;
     });
   }
+  eliminar(equipo: Equipo): void {
+    console.log(equipo);
+    this.eqs.eliminar(equipo).subscribe(data => {
+      if (data === 1) {
+        this.eqs.getListarEquipo(0, 10).subscribe(equipos => {
+          this.eqs.equipoCambio.next(equipos);
+          this.eqs.mensaje.next("Se elimino correctamente");
+        });
+      } else {
+        this.eqs.mensaje.next("No se pudo eliminar");
+      }
+    });
+  }
 
 }
