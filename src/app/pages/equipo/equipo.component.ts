@@ -28,6 +28,7 @@ export class EquipoComponent implements OnInit {
       /* console.log(data);
       this.lista = data;
       console.log(this.lista); */
+      console.log(data);
       let equipos = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
