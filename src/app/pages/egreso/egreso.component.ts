@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
 
 @Component({
   selector: 'app-egreso',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./egreso.component.css']
 })
 export class EgresoComponent implements OnInit {
+
+  displayedColumns = ['id', 'marca', 'modelo', 'estado', 'acciones'];
+  dataSource: MatTableDataSource<SuministroEgreso>;
 
   constructor() { }
 
