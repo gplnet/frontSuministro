@@ -64,7 +64,7 @@ export class EquipoEdicionComponent implements OnInit {
 
     if(this.equipo != null && this.equipo.eqp_Ide > 0){
       //update
-      this.eqpS.modificar(this.equipo).subscribe( data =>{
+      this.eqpS.  modificar(this.equipo).subscribe( data =>{
         if(data === 1){
           //exito
           this.eqpS.getListarEquipo(0,100).subscribe( equipo => {

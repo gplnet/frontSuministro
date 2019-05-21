@@ -17,6 +17,8 @@ import { Not403Component } from './pages/not403/not403.component';
 import { PagesComponent } from './pages/pages.component';
 import { SuministroEgresoComponent } from './pages/suministro-egreso/suministro-egreso.component';
 import { EgresoComponent } from './pages/egreso/egreso.component';
+import { DepartamentoComponent } from './pages/departamento/departamento.component';
+import { DepartamentoEdicionComponent } from './pages/departamento/departamento-edicion/departamento-edicion.component';
 
 
 
@@ -32,6 +34,8 @@ import { EgresoComponent } from './pages/egreso/egreso.component';
     PagesComponent,
     SuministroEgresoComponent,
     EgresoComponent,
+    DepartamentoComponent,
+    DepartamentoEdicionComponent,
 
   ],
   imports: [
