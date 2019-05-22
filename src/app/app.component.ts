@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_service/auth.service';
 import { Observable } from 'rxjs';
+import { LoginService } from './_service/login.services';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
 
   title = 'frontApp';
 
-  constructor(private auth: AuthService)
+  constructor(private auth: AuthService,public loginService: LoginService)
   {  }
 
   ngOnInit(){
