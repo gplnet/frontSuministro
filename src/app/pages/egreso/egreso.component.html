@@ -1,47 +1,91 @@
 
 <mat-toolbar>Registro de Egreso</mat-toolbar>
+<br/>
 <div class="example-container">
     <div class="container">
         <div class="row">
-          <div class="col-md12">
+          <div class="col-md-12">
               <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td>
-                      <mat-form-field>
-                        <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
-                          <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
-                            {{ s.suministro }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
+                        <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
+                          {{ s.suministro }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
-                          <mat-option *ngFor="let d of departamentos" [value]="d.dpr_ide">
-                            {{ d.dpr_nombre }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                  </td>
+                  <td>
+                    <hr>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
+                        <mat-option *ngFor="let d of departamentos" [value]="d.dpr_ide">
+                          {{ d.dpr_nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
-                    </td>
-                    <td>
-                      <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Escage una fecha" [max]="maxFecha"
-                          [(ngModel)]="fechaSelecionada">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                    </td>
-                    <td>
-                        <button mat-raised-button color="primary" (click)="agregar()">Agregar Egreso</button>
-                    </td>
-                  </tr>
-                </table>
+                  </td>
+                  <td><span class="fa fa-user"></span></td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker" placeholder="Escage una fecha" [max]="maxFecha"
+                        [(ngModel)]="fechaSelecionada">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td><span class="fa fa-user"></span></td>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="agregar()">Agregar Egreso</button>
+                  </td>
+                </tr>
+              </table>
 
           </div>
         </div>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.eqp_Ide}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="marca">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.eqp_mrc}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modelo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.eqp_mdl}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.eqp_est}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-button color="primary" [routerLink]="['edicion', row.eqp_Ide]">Actualizar</button>
+              <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+          </mat-row>
+
+        </mat-table>
+
 
         <mat-toolbar *ngIf="">No hay egresos agregados</mat-toolbar>
 

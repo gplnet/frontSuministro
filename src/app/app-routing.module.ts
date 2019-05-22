@@ -9,17 +9,17 @@ import { Not403Component } from './pages/not403/not403.component';
 import { EgresoComponent } from './pages/egreso/egreso.component';
 
 const routes: Routes = [
-  {path:'', component: PagesComponent, children: [
+
     {path:'equipo', component: EquipoComponent, children: [
       {path: 'nuevo', component: EquipoEdicionComponent},
       {path: 'edicion/:id', component: EquipoEdicionComponent},
       { path: '', redirectTo: 'login', pathMatch: 'full' }
-    ], canActivate: [GuardService]
-  },
+    ], canActivate: [GuardService]},
+
   { path:'egreso', component: EgresoComponent, canActivate: [GuardService]},
-  ]},
+
   { path: 'login', component: LoginComponent },
-  { path: '**', component: Not403Component}
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
