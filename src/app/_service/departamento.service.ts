@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class DepartamentoService {
 
-  url: string = `${HOST}/departamento`; 
+  url: string = `${HOST}/departamento`;
   departamentoCambio = new Subject<Departamento[]>();
   mensaje = new Subject<string>();
 
@@ -20,6 +20,13 @@ export class DepartamentoService {
   getListarDepartamento(p:number, s:number) {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
     return this.http.get<Departamento[]>(`${this.url }/listarPageable?page=${p}&size=${s}`,{
+    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  getListar() {
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Departamento[]>(`${this.url }/listar`,{
     headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }
