@@ -11,7 +11,7 @@
                     <mat-form-field>
                       <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
                         <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
-                          {{ s.suministro }}
+                          {{ s.sum_mdl }} {{ s.sum_col }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -23,8 +23,8 @@
                   <td>
                     <mat-form-field>
                       <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
-                        <mat-option *ngFor="let d of departamentos" [value]="d.dpr_ide">
-                          {{ d.dpr_nombre }}
+                        <mat-option *ngFor="let d of departamentos" [value]="d.dpr_Ide">
+                          {{ d.dpr_Nom }} {{ d.dpr_Res}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
