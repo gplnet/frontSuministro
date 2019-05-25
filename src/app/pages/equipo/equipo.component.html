@@ -2,48 +2,59 @@
 <router-outlet></router-outlet>
 
 <div class="example-container mat-elevation-z8" *ngIf="route.children.length === 0">
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Equipo">
-    </mat-form-field>
-  </div>
-  <mat-table [dataSource]="dataSource" matSort>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="example-header">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Equipo">
+                    </mat-form-field>
+                </div>
 
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.eqp_Ide}} </mat-cell>
-    </ng-container>
+                <mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="marca">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.eqp_mrc}}</mat-cell>
-    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.eqp_Ide}} </mat-cell>
+                    </ng-container>
 
-    <ng-container matColumnDef="modelo">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.eqp_mdl}} </mat-cell>
-    </ng-container>
+                    <ng-container matColumnDef="marca">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.eqp_mrc}}</mat-cell>
+                    </ng-container>
 
-    <ng-container matColumnDef="estado">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.eqp_est}} </mat-cell>
-    </ng-container>
+                    <ng-container matColumnDef="modelo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.eqp_mdl}} </mat-cell>
+                    </ng-container>
 
-    <ng-container matColumnDef="acciones">
-      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" [routerLink]="['edicion', row.eqp_Ide]" >Actualizar</button>
-        <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
-      </mat-cell>
-    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.eqp_est}} </mat-cell>
+                    </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    <ng-container matColumnDef="acciones">
+                        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-button color="primary" [routerLink]="['edicion', row.eqp_Ide]">Actualizar</button>
+                            <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
+                        </mat-cell>
+                    </ng-container>
 
-    </mat-row>
-  </mat-table>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [length]="cantidad" (page)="mostrarMas($event)" ></mat-paginator>
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [length]="cantidad" (page)="mostrarMas($event)"></mat-paginator>
+
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
 <br/>
 
