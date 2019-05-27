@@ -7,14 +7,22 @@ import { GuardService } from './_service/guard.service';
 import { PagesComponent } from './pages/pages.component';
 import { Not403Component } from './pages/not403/not403.component';
 import { EgresoComponent } from './pages/egreso/egreso.component';
+import { DepartamentoComponent } from './pages/departamento/departamento.component';
+import { DepartamentoEdicionComponent } from './pages/departamento/departamento-edicion/departamento-edicion.component';
 
 const routes: Routes = [
+  
+  { path: 'not-403', component: Not403Component },
+  {path:'equipo', component: EquipoComponent, children: [
+    {path: 'nuevo', component: EquipoEdicionComponent},
+    {path: 'edicion/:id', component: EquipoEdicionComponent},
+    { path: '', redirectTo: 'login', pathMatch: 'full' }
+  ], canActivate: [GuardService]},
 
-    {path:'equipo', component: EquipoComponent, children: [
-      {path: 'nuevo', component: EquipoEdicionComponent},
-      {path: 'edicion/:id', component: EquipoEdicionComponent},
-      { path: '', redirectTo: 'login', pathMatch: 'full' }
-    ], canActivate: [GuardService]},
+  { path: 'departamento', component: DepartamentoComponent, children: [
+    {path:'nuevo', component: DepartamentoComponent},
+    {path: 'edicion/:id', component: DepartamentoEdicionComponent},
+  ], canActivate: [GuardService]},
 
   { path:'egreso', component: EgresoComponent, canActivate: [GuardService]},
 
