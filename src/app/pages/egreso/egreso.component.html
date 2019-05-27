@@ -48,6 +48,7 @@
 
           </div>
         </div>
+        <mat-toolbar *ngIf="suministroEgreso.length===0">No hay diagnósticos agregados</mat-toolbar>
 
         <mat-table [dataSource]="dataSource" matSort>
 
