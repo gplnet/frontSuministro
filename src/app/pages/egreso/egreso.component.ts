@@ -4,6 +4,9 @@ import { SuministroEgresoService } from 'src/app/_service/suministro-egreso.serv
 import { Suministro } from 'src/app/_model/suministro';
 import { DepartamentoService } from 'src/app/_service/departamento.service';
 import { Departamento } from 'src/app/_model/departamento';
+import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
+import { MatSnackBar } from '@angular/material';
+import { Egreso } from 'src/app/_model/egreso';
 
 @Component({
   selector: 'app-egreso',
@@ -17,13 +20,28 @@ export class EgresoComponent implements OnInit {
 
   suministros:Suministro [] = [];
   departamentos:Departamento [] = [];
+  suministroEgreso: SuministroEgreso [] = [];
+
+  idDepartamentoSeleccionado: number;
+  idSuminstroSeleccionado: number;
+
+  mensaje: string;
+  fechaSeleccionada: Date = new Date();
 
 
-  constructor(private sS: SuministroEgresoService, private sD: DepartamentoService) { }
+
+  constructor(private sS: SuministroEgresoService,
+              private sD: DepartamentoService,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.listarSuministrosEgresos();
     this.listarDepartamento();
+
+    this.fechaSeleccionada.setHours(0);
+    this.fechaSeleccionada.setMinutes(0);
+    this.fechaSeleccionada.setSeconds(0);
+    this.fechaSeleccionada.setMilliseconds(0);
   }
 
   listarSuministrosEgresos(){
@@ -41,6 +59,27 @@ export class EgresoComponent implements OnInit {
 
     });
 
+  }
+  agregar(){
+    console.log(this. idSuminstroSeleccionado);
+    console.log(this.idDepartamentoSeleccionado);
+    if(this. idSuminstroSeleccionado > 0  && this.idDepartamentoSeleccionado > 0 ){
+      let detalle = new Egreso();
+      let idV = 0;
+      detalle.departamento.dpr_ide = this.idDepartamentoSeleccionado;
+      detalle.fecha = this.fechaSeleccionada;
+      detalle.suministroEgreso.suministro.sum_ide = this.idSuminstroSeleccionado;
+      detalle.suministroEgreso.seg_can = 0;
+      detalle.suministroEgreso.seg_ide = idV;
+
+
+      //this.suministroEgreso.push(detalle);
+
+
+    }else{
+      this.mensaje = `Debe agregar un diagnóstico y tramiento`;
+      this.snackBar.open(this.mensaje, "Aviso", { duration: 2000 });
+    }
   }
 
 }
