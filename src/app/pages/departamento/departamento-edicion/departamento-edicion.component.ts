@@ -41,9 +41,9 @@ export class DepartamentoEdicionComponent implements OnInit {
     if(this.edicion){
       this.dpt.getDepartamentoPorId(this.id).subscribe(data => {
         //console.log(data);
-        let id = data.dpr_Ide;
-        let nombre = data.dpr_Nom;
-        let responsable = data.dpr_Res;
+        var id = data.dpr_Ide;
+        var nombre = data.dpr_Nom;
+        var responsable = data.dpr_Res;
        
         this.form = new FormGroup({
           'dpr_Ide': new FormControl(id),
@@ -55,12 +55,12 @@ export class DepartamentoEdicionComponent implements OnInit {
   }
 
   operar(){
-    this.departamento.dpr_ide = this.form.value['dpr_Ide'];
-    this.departamento.dpr_nom = this.form.value['dpr_Nom'];
-    this.departamento.dpr_res = this.form.value['dpr_Res'];
+    this.departamento.dpr_Ide = this.form.value['dpr_Ide'];
+    this.departamento.dpr_Nom = this.form.value['dpr_Nom'];
+    this.departamento.dpr_Res = this.form.value['dpr_Res'];
     console.log(this.departamento);
 
-    if(this.departamento != null && this.departamento.dpr_ide > 0){
+    if(this.departamento != null && this.departamento.dpr_Ide > 0){
       //update
       this.dpt.modificar(this.departamento).subscribe( data =>{
         console.log(data);

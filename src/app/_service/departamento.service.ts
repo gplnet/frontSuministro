@@ -53,7 +53,7 @@ export class DepartamentoService {
   }
   eliminar(departamento: Departamento){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.delete(`${this.url}/eliminar/${departamento.dpr_ide}`, {
+    return this.http.delete(`${this.url}/eliminar/${departamento.dpr_Ide}`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }

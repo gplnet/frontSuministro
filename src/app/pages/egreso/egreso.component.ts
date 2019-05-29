@@ -66,7 +66,7 @@ export class EgresoComponent implements OnInit {
     if(this. idSuminstroSeleccionado > 0  && this.idDepartamentoSeleccionado > 0 ){
       let detalle = new Egreso();
       let idV = 0;
-      detalle.departamento.dpr_ide = this.idDepartamentoSeleccionado;
+      detalle.departamento.dpr_Ide = this.idDepartamentoSeleccionado;
       detalle.fecha = this.fechaSeleccionada;
       detalle.suministroEgreso.suministro.sum_ide = this.idSuminstroSeleccionado;
       detalle.suministroEgreso.seg_can = 0;

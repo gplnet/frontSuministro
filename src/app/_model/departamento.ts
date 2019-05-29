@@ -1,5 +1,5 @@
 export class Departamento {
-  dpr_ide: number;
-  dpr_nom: string;
-  dpr_res: string;
+  dpr_Ide: number;
+  dpr_Nom: string;
+  dpr_Res: string;
 }
