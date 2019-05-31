@@ -7,6 +7,8 @@ import { Departamento } from 'src/app/_model/departamento';
 import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
 import { MatSnackBar } from '@angular/material';
 import { Egreso } from 'src/app/_model/egreso';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-egreso',
@@ -22,11 +24,17 @@ export class EgresoComponent implements OnInit {
   departamentos:Departamento [] = [];
   suministroEgreso: SuministroEgreso [] = [];
 
+  myControl: FormControl = new FormControl();
+
   idDepartamentoSeleccionado: number;
   idSuminstroSeleccionado: number;
 
   mensaje: string;
   fechaSeleccionada: Date = new Date();
+
+  filteredOptions: Observable<any[]>;
+
+  suministroSeleccionado: Suministro;
 
 
 
@@ -42,6 +50,28 @@ export class EgresoComponent implements OnInit {
     this.fechaSeleccionada.setMinutes(0);
     this.fechaSeleccionada.setSeconds(0);
     this.fechaSeleccionada.setMilliseconds(0);
+
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(null), map(val => this.filter(val)) );
+  }
+
+
+  filter(val: any) {
+    if (val != null && val.sum_ide > 0) {
+      return this.suministros.filter(option =>
+        option.sum_cod.toLowerCase().includes(val.sum_cod.toLowerCase()) || option.sum_col.toLowerCase().includes(val.sum_col.toLowerCase()) || option.sum_mdl.includes(val.sum_mdl));
+    } else {
+      return this.suministros.filter(option =>
+        option.sum_cod.toLowerCase().includes(val.toLowerCase()) || option.sum_col.toLowerCase().includes(val.toLowerCase()) || option.sum_mdl.includes(val));
+    }
+  }
+
+  displayFn(val: Suministro) {
+    return val ? `${val.sum_cod} ${val.sum_col}` : val;
+  }
+
+  seleccionarsuministroe(e){
+    this.suministroSeleccionado = e.option.value;
   }
 
   listarSuministrosEgresos(){
@@ -77,7 +107,7 @@ export class EgresoComponent implements OnInit {
 
 
     }else{
-      this.mensaje = `Debe agregar un diagnóstico y tramiento`;
+      this.mensaje = `Debe agregar suminsitro`;
       this.snackBar.open(this.mensaje, "Aviso", { duration: 2000 });
     }
   }
