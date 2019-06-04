@@ -7,6 +7,7 @@ import { Departamento } from 'src/app/_model/departamento';
 import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
 import { MatSnackBar } from '@angular/material';
 import { Egreso } from 'src/app/_model/egreso';
+import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -70,8 +71,9 @@ export class EgresoComponent implements OnInit {
     return val ? `${val.sum_cod} ${val.sum_col}` : val;
   }
 
-  seleccionarsuministroe(e){
+  seleccionarsuministro(e){
     this.suministroSeleccionado = e.option.value;
+    console.log(this.suministroSeleccionado);
   }
 
   listarSuministrosEgresos(){
