@@ -13,7 +13,7 @@ import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator'
 import {MatInputModule} from '@angular/material/input';
 import { MatPaginatorImpl } from '../_shared/mat-paginator';
 import {MatCardModule} from '@angular/material/card';
-import { MatSnackBarModule, MatSelectModule,MatNativeDateModule } from '@angular/material';
+import { MatSnackBarModule, MatSelectModule,MatNativeDateModule, MatAutocompleteModule } from '@angular/material';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
@@ -37,7 +37,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSnackBarModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
 
 
   ],
@@ -56,7 +57,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSnackBarModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

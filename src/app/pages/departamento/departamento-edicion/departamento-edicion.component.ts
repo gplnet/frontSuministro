@@ -15,6 +15,8 @@ export class DepartamentoEdicionComponent implements OnInit {
   departamento: Departamento;
   form: FormGroup;
   edicion: boolean = false;
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
 
   constructor(private dpt: DepartamentoService, private route: ActivatedRoute, private router: Router) { 
     this.departamento = new Departamento();
