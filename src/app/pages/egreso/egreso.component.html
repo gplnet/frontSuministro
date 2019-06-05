@@ -28,11 +28,17 @@
                   </td>
                   <td>
                     <mat-form-field>
-                      <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
+                      <!-- <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
                         <mat-option *ngFor="let d of departamentos" [value]="d.dpr_Ide">
                           {{ d.dpr_Nom }} {{ d.dpr_Res}}
                         </mat-option>
-                      </mat-select>
+                      </mat-select> -->
+                      <input type="text" placeholder="Departamento" matInput [matAutocomplete]="autoDepartamento" [formControl]="myControlDepart" >
+                      <mat-autocomplete #autoDepartamento="matAutocomplete" [displayWith]="displayFnDepart" (optionSelected)="seleccionarDepart($event)">
+                        <mat-option *ngFor="let d of filteredOptionsDepart | async" [value]="d">
+                          {{ d.dpr_Nom }} {{d.dpr_Res}}
+                        </mat-option>
+                      </mat-autocomplete>
                     </mat-form-field>
 
                   </td>

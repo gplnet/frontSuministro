@@ -40,7 +40,7 @@ export class DepartamentoEdicionComponent implements OnInit {
   private initForm(){
     if(this.edicion){
       this.dpt.getDepartamentoPorId(this.id).subscribe(data => {
-        console.log(data);
+        //console.log(data);
         let id = data.dpr_Ide;
         let nombre = data.dpr_Nom;
         let responsable = data.dpr_Res;
