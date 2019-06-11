@@ -26,6 +26,8 @@ export class EgresoComponent implements OnInit {
   suministroEgreso: SuministroEgreso [] = [];
 
   myControl: FormControl = new FormControl();
+  myControlDepart: FormControl = new FormControl();
+
 
   idDepartamentoSeleccionado: number;
   idSuminstroSeleccionado: number;
@@ -34,8 +36,10 @@ export class EgresoComponent implements OnInit {
   fechaSeleccionada: Date = new Date();
 
   filteredOptions: Observable<any[]>;
+  filteredOptionsDepart: Observable<any[]>;
 
   suministroSeleccionado: Suministro;
+  departamentoSeleccionado: Departamento;
 
 
 
@@ -54,6 +58,7 @@ export class EgresoComponent implements OnInit {
 
 
     this.filteredOptions = this.myControl.valueChanges.pipe(startWith(null), map(val => this.filter(val)) );
+    this.filteredOptionsDepart = this.myControlDepart.valueChanges.pipe(startWith(null), map(val => this.filterDepart(val)) );
   }
 
 
@@ -66,14 +71,30 @@ export class EgresoComponent implements OnInit {
         option.sum_cod.toLowerCase().includes(val.toLowerCase()) || option.sum_col.toLowerCase().includes(val.toLowerCase()) || option.sum_mdl.includes(val));
     }
   }
+  filterDepart(val: any) {
+    if (val != null && val.dpr_ide > 0) {
+      return this.departamentos.filter(option =>
+        option.dpr_Nom.toLowerCase().includes(val.dpr_Nom.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.dpr_Res.toLowerCase()) );
+    } else {
+      return this.departamentos.filter(option =>
+        option.dpr_Res.toLowerCase().includes(val.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.toLowerCase()));
+    }
+  }
 
   displayFn(val: Suministro) {
     return val ? `${val.sum_cod} ${val.sum_col}` : val;
+  }
+  displayFnDepart(val: Departamento){
+    return val ? `${val.dpr_Nom} ${val.dpr_Res}` : val;
   }
 
   seleccionarsuministro(e){
     this.suministroSeleccionado = e.option.value;
     console.log(this.suministroSeleccionado);
+  }
+  seleccionarDepart(e){
+    this.departamentoSeleccionado = e.option.value;
+    console.log(this.departamentoSeleccionado);
   }
 
   listarSuministrosEgresos(){
