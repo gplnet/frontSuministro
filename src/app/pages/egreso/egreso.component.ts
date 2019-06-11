@@ -29,9 +29,6 @@ export class EgresoComponent implements OnInit {
   myControlDepart: FormControl = new FormControl();
 
 
-  idDepartamentoSeleccionado: number;
-  idSuminstroSeleccionado: number;
-
   mensaje: string;
   fechaSeleccionada: Date = new Date();
 
@@ -73,9 +70,11 @@ export class EgresoComponent implements OnInit {
   }
   filterDepart(val: any) {
     if (val != null && val.dpr_ide > 0) {
+      console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Nom.toLowerCase().includes(val.dpr_Nom.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.dpr_Res.toLowerCase()) );
     } else {
+      console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Res.toLowerCase().includes(val.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.toLowerCase()));
     }
@@ -99,7 +98,7 @@ export class EgresoComponent implements OnInit {
 
   listarSuministrosEgresos(){
     this.sS.getListar().subscribe( data => {
-      console.log(data);
+      //console.log(data);
       this.suministros = data;
 
     });
@@ -108,24 +107,24 @@ export class EgresoComponent implements OnInit {
   listarDepartamento(){
     this.sD.getListar().subscribe(data =>{
       this.departamentos = data;
-      console.log(data);
+      ///console.log(data);
 
     });
 
   }
   agregar(){
-    console.log(this. idSuminstroSeleccionado);
-    console.log(this.idDepartamentoSeleccionado);
-    if(this. idSuminstroSeleccionado > 0  && this.idDepartamentoSeleccionado > 0 ){
+    console.log(this. departamentoSeleccionado);
+    console.log(this.suministroSeleccionado);
+    if(this. suministroSeleccionado.sum_ide > 0  && this.departamentoSeleccionado.dpr_Ide > 0 ){
       let detalle = new Egreso();
       let idV = 0;
-      detalle.departamento.dpr_ide = this.idDepartamentoSeleccionado;
+      detalle.departamento  = this.departamentoSeleccionado;
       detalle.fecha = this.fechaSeleccionada;
-      detalle.suministroEgreso.suministro.sum_ide = this.idSuminstroSeleccionado;
+      detalle.suministroEgreso.suministro = this.suministroSeleccionado;
       detalle.suministroEgreso.seg_can = 0;
       detalle.suministroEgreso.seg_ide = idV;
 
-
+      console.log(detalle);
       //this.suministroEgreso.push(detalle);
 
 
