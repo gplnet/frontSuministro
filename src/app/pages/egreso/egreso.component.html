@@ -9,11 +9,17 @@
                 <tr>
                   <td>
                     <mat-form-field>
-                      <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
+                      <!-- <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
                         <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
-                          {{ s.sum_mdl }} {{ s.sum_col }}
+                          {{ s.sum_mdl }} {{ s.sum_mdl }}
                         </mat-option>
-                      </mat-select>
+                      </mat-select> -->
+                      <input type="text" placeholder="Suministro" matInput [matAutocomplete]="autoSuministro" [formControl]="myControl" >
+                      <mat-autocomplete #autoSuministro="matAutocomplete" [displayWith]="displayFn" (optionSelected)="seleccionarsuministro($event)">
+                        <mat-option *ngFor="let s of filteredOptions | async" [value]="s">
+                          {{ s.sum_mdl }} {{s.sum_col}}
+                        </mat-option>
+                      </mat-autocomplete>
                     </mat-form-field>
 
                   </td>

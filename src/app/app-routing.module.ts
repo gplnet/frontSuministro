@@ -9,6 +9,8 @@ import { Not403Component } from './pages/not403/not403.component';
 import { EgresoComponent } from './pages/egreso/egreso.component';
 import { DepartamentoComponent } from './pages/departamento/departamento.component';
 import { DepartamentoEdicionComponent } from './pages/departamento/departamento-edicion/departamento-edicion.component';
+import { ProveedorComponent } from './pages/proveedor/proveedor.component';
+import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/proveedor-edicion.component';
 const routes: Routes = [
   
   { path: 'not-403', component: Not403Component },
@@ -24,6 +26,12 @@ const routes: Routes = [
     {path: 'edicion/:id', component: DepartamentoEdicionComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'}
   ], canActivate:[GuardService]},
+
+  {path: 'proveedor', component: ProveedorComponent, children: [
+    {path: 'nuevo', component: ProveedorEdicionComponent},
+    {path: 'edicion/:id', component: ProveedorEdicionComponent},
+    {path: '', redirectTo: 'login', pathMatch: 'full'}
+  ], canActivate: [GuardService]},
 
   { path: 'egreso', component: EgresoComponent, canActivate: [GuardService]},
 
