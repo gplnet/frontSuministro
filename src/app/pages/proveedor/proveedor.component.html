@@ -1,4 +1,4 @@
-<mat-toolbar>Equipos</mat-toolbar>
+<mat-toolbar>Proveedor</mat-toolbar>
 <router-outlet></router-outlet>
 
 <div class="example-container mat-elevation-z8" *ngIf="route.children.length === 0">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="example-header">
                     <mat-form-field>
-                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Equipo">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Proveedor">
                     </mat-form-field>
                 </div>
 
@@ -15,28 +15,28 @@
 
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.eqp_Ide}} </mat-cell>
+                        <mat-cell *matCellDef="let row"> {{row.prv_ide}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="marca">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.eqp_mrc}}</mat-cell>
+                    <ng-container matColumnDef="nombre">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.prv_nom}}</mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="modelo">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.eqp_mdl}} </mat-cell>
+                    <ng-container matColumnDef="correo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Correo </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.prv_cro}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="estado">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row.eqp_est}} </mat-cell>
+                    <ng-container matColumnDef="telefono">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.prv_tlf}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
                         <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                            <button mat-button color="primary" [routerLink]="['edicion', row.eqp_Ide]">Actualizar</button>
+                            <button mat-button color="primary" [routerLink]="['edicion', row.prv_ide]">Actualizar</button>
                             <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
                         </mat-cell>
                     </ng-container>
@@ -55,7 +55,7 @@
     </div>
 
 
-    <button mat-fab color="accent" style="float: right" routerLink='/equipo/nuevo' title='Nuevo'>
+    <button mat-fab color="accent" style="float: right" routerLink='/proveedor/nuevo' title='Nuevo'>
         <mat-icon>create</mat-icon>
     </button>
 </div>

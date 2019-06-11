@@ -18,6 +18,20 @@
         <input matInput placeholder="RESPONSABLE" formControlName="dpr_Res">
     </mat-form-field>
 
+    <!-- <mat-form-field class="example-full-width">
+        <input matInput placeholder="EQUIPO" formControlName="dpr_Res">
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field> -->
+
+    <!-- <mat-form-field class="example-full-width">
+        <input matInput placeholder="RESPONSABLE" formControlName="dpr_Res">
+    </mat-form-field-->
+
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
     <mat-icon>done</mat-icon>
     <span>Aceptar</span>

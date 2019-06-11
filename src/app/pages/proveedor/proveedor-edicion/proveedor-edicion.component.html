@@ -1,4 +1,4 @@
-<mat-card>Ingrese los datos del equipo</mat-card>
+<mat-card>Ingrese los datos del proveedor</mat-card>
 
 <br/>
 
@@ -6,21 +6,21 @@
 
     <div [hidden]="true">
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="ID" formControlName="eqp_ide">
+            <input matInput placeholder="ID" formControlName="prv_ide">
         </mat-form-field>
     </div>
 
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Marca" formControlName="eqp_mrc">
+        <input matInput placeholder="Nombre" formControlName="prv_nom">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Modelo" formControlName="eqp_mdl">
+        <input matInput placeholder="Correo" formControlName="prv_cro">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
 
-        <input matInput placeholder="Estado" formControlName="eqp_est" type="text">
+        <input matInput placeholder="Telefono" formControlName="prv_tlf" type="text">
 
     </mat-form-field>
 
@@ -28,7 +28,7 @@
     <mat-icon>done</mat-icon>
     <span>Aceptar</span>
   </button>
-    <button mat-raised-button color="accent" routerLink='/equipo' type="button">
+    <button mat-raised-button color="accent" routerLink='/proveedor' type="button">
     <mat-icon>close</mat-icon>
     <span>Cancelar</span>
   </button>

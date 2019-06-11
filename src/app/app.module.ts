@@ -19,6 +19,9 @@ import { SuministroEgresoComponent } from './pages/suministro-egreso/suministro-
 import { EgresoComponent } from './pages/egreso/egreso.component';
 import { DepartamentoComponent } from './pages/departamento/departamento.component';
 import { DepartamentoEdicionComponent } from './pages/departamento/departamento-edicion/departamento-edicion.component';
+import { ProveedorComponent } from './pages/proveedor/proveedor.component';
+import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/proveedor-edicion.component';
+
 
 
 
@@ -36,6 +39,8 @@ import { DepartamentoEdicionComponent } from './pages/departamento/departamento-
     EgresoComponent,
     DepartamentoComponent,
     DepartamentoEdicionComponent,
+    ProveedorComponent,
+    ProveedorEdicionComponent,
 
   ],
   imports: [
