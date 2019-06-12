@@ -23,7 +23,7 @@ export class EgresoComponent implements OnInit {
 
   suministros:Suministro [] = [];
   departamentos:Departamento [] = [];
-  suministroEgreso: SuministroEgreso [] = [];
+  suministroEgreso: Egreso [] = [];
 
   myControl: FormControl = new FormControl();
   myControlDepart: FormControl = new FormControl();
@@ -60,21 +60,24 @@ export class EgresoComponent implements OnInit {
 
 
   filter(val: any) {
+    //console.log(val);
     if (val != null && val.sum_ide > 0) {
+      //console.log(val);
       return this.suministros.filter(option =>
         option.sum_cod.toLowerCase().includes(val.sum_cod.toLowerCase()) || option.sum_col.toLowerCase().includes(val.sum_col.toLowerCase()) || option.sum_mdl.includes(val.sum_mdl));
-    } else {
+      } else {
+        //console.log(val);
       return this.suministros.filter(option =>
         option.sum_cod.toLowerCase().includes(val.toLowerCase()) || option.sum_col.toLowerCase().includes(val.toLowerCase()) || option.sum_mdl.includes(val));
     }
   }
   filterDepart(val: any) {
-    if (val != null && val.dpr_ide > 0) {
-      console.log(val);
+    if (val != null && val.dpr_Ide > 0) {
+      //console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Nom.toLowerCase().includes(val.dpr_Nom.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.dpr_Res.toLowerCase()) );
     } else {
-      console.log(val);
+      //console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Res.toLowerCase().includes(val.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.toLowerCase()));
     }
@@ -116,18 +119,22 @@ export class EgresoComponent implements OnInit {
     console.log(this. departamentoSeleccionado);
     console.log(this.suministroSeleccionado);
     if(this. suministroSeleccionado.sum_ide > 0  && this.departamentoSeleccionado.dpr_Ide > 0 ){
-      let detalle = new Egreso();
       let idV = 0;
+      let detalle = new Egreso();
+      let sEgrso = new SuministroEgreso();
+      sEgrso.suministro = this.suministroSeleccionado;
+      sEgrso.seg_can = 0;
+      sEgrso.seg_ide = idV;
+
 
       detalle.departamento  = this.departamentoSeleccionado;
 
       detalle.fecha = this.fechaSeleccionada;
-      detalle.suministroEgreso.suministro = this.suministroSeleccionado;
-      detalle.suministroEgreso.seg_can = 0;
-      detalle.suministroEgreso.seg_ide = idV;
+      detalle.suministroEgreso = sEgrso;
+
 
       console.log(detalle);
-      //this.suministroEgreso.push(detalle);
+      this.suministroEgreso.push(detalle);
 
 
     }else{
