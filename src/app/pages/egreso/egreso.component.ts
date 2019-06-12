@@ -135,6 +135,7 @@ export class EgresoComponent implements OnInit {
 
       console.log(detalle);
       this.suministroEgreso.push(detalle);
+      this.dataSource.data = this.detalle;
 
 
     }else{
