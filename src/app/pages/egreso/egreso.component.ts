@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 export class EgresoComponent implements OnInit {
 
   displayedColumns = ['id', 'marca', 'modelo', 'estado', 'acciones'];
-  dataSource: MatTableDataSource<Suministro>;
+  dataSource: MatTableDataSource<Egreso>;
 
   suministros:Suministro [] = [];
   departamentos:Departamento [] = [];
