@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SuministroEgresoService } from 'src/app/_service/suministro-egreso.service';
 import { Suministro } from 'src/app/_model/suministro';
@@ -18,7 +18,8 @@ import { Observable } from 'rxjs';
 })
 export class EgresoComponent implements OnInit {
 
-  displayedColumns = ['id', 'marca', 'modelo', 'estado', 'acciones'];
+  @ViewChild('depart') depart;
+  displayedColumns = ['id', 'descripcion', 'modelo', 'departamento', 'acciones'];
   dataSource: MatTableDataSource<Egreso>;
 
   suministros:Suministro [] = [];
@@ -42,7 +43,9 @@ export class EgresoComponent implements OnInit {
 
   constructor(private sS: SuministroEgresoService,
               private sD: DepartamentoService,
-              public snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar) {
+                this.dataSource = new MatTableDataSource<Egreso>();
+              }
 
   ngOnInit() {
     this.listarSuministrosEgresos();
@@ -135,7 +138,9 @@ export class EgresoComponent implements OnInit {
 
       console.log(detalle);
       this.suministroEgreso.push(detalle);
-      this.dataSource.data = this.detalle;
+      this.dataSource.data = this.suministroEgreso;
+      this.depart='';
+
 
 
     }else{

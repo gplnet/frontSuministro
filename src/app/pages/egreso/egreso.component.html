@@ -33,7 +33,7 @@
                           {{ d.dpr_Nom }} {{ d.dpr_Res}}
                         </mat-option>
                       </mat-select> -->
-                      <input type="text" placeholder="Departamento" matInput [matAutocomplete]="autoDepartamento" [formControl]="myControlDepart" >
+                      <input #depart type="text" placeholder="Departamento" matInput [matAutocomplete]="autoDepartamento" [formControl]="myControlDepart" >
                       <mat-autocomplete #autoDepartamento="matAutocomplete" [displayWith]="displayFnDepart" (optionSelected)="seleccionarDepart($event)">
                         <mat-option *ngFor="let d of filteredOptionsDepart | async" [value]="d">
                           {{ d.dpr_Nom }} {{d.dpr_Res}}
@@ -66,22 +66,22 @@
 
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.eqp_Ide}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.departamento.dpr_Ide}} </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="marca">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.eqp_mrc}}</mat-cell>
+          <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.suministroEgreso.suministro.sum_cod}} - {{row.suministroEgreso.suministro.sum_col}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="modelo">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.eqp_mdl}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.suministroEgreso.suministro.sum_mdl}} </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="estado">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.eqp_est}} </mat-cell>
+          <ng-container matColumnDef="departamento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Departamento </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.departamento.dpr_Nom}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="acciones">
