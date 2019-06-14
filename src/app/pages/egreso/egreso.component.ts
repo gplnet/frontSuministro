@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SuministroEgresoService } from 'src/app/_service/suministro-egreso.service';
 import { Suministro } from 'src/app/_model/suministro';
 import { DepartamentoService } from 'src/app/_service/departamento.service';
 import { Departamento } from 'src/app/_model/departamento';
 import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatInput } from '@angular/material';
 import { Egreso } from 'src/app/_model/egreso';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -18,7 +18,10 @@ import { Observable } from 'rxjs';
 })
 export class EgresoComponent implements OnInit {
 
-  @ViewChild('depart') depart;
+  @ViewChild('depart') depart: ElementRef;
+  @ViewChild('suminst') suminst: ElementRef;
+
+
   displayedColumns = ['id', 'descripcion', 'modelo', 'departamento', 'acciones'];
   dataSource: MatTableDataSource<Egreso>;
 
@@ -32,6 +35,7 @@ export class EgresoComponent implements OnInit {
 
   mensaje: string;
   fechaSeleccionada: Date = new Date();
+  maxFecha: Date = new Date();
 
   filteredOptions: Observable<any[]>;
   filteredOptionsDepart: Observable<any[]>;
@@ -139,7 +143,10 @@ export class EgresoComponent implements OnInit {
       console.log(detalle);
       this.suministroEgreso.push(detalle);
       this.dataSource.data = this.suministroEgreso;
-      this.depart='';
+
+      setTimeout(() => {
+        this.limpiarElementos();
+      }, 2000);
 
 
 
@@ -147,6 +154,17 @@ export class EgresoComponent implements OnInit {
       this.mensaje = `Debe agregar suminsitro`;
       this.snackBar.open(this.mensaje, "Aviso", { duration: 2000 });
     }
+  }
+  limpiarElementos(){
+      this.depart.nativeElement.value = '';
+      this.suminst.nativeElement.value = '';
+      this.fechaSeleccionada = new Date();
+      this.fechaSeleccionada.setHours(0);
+      this.fechaSeleccionada.setMinutes(0);
+      this.fechaSeleccionada.setSeconds(0);
+      this.fechaSeleccionada.setMilliseconds(0);
+
+
   }
 
 }
