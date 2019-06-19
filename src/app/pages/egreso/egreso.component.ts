@@ -22,7 +22,7 @@ export class EgresoComponent implements OnInit {
   @ViewChild('suminst') suminst: ElementRef;
 
 
-  displayedColumns = ['id', 'descripcion', 'modelo', 'departamento', 'acciones'];
+  displayedColumns = ['id', 'descripcion', 'modelo', 'departamento','cantidad', 'acciones'];
   dataSource: MatTableDataSource<Egreso>;
 
   suministros:Suministro [] = [];
@@ -122,38 +122,53 @@ export class EgresoComponent implements OnInit {
     });
 
   }
+  aceptar(){
+
+  }
+  estadoBotonRegistrar(){
+    return (this.suministroEgreso.length === 0 );
+  }
+
   agregar(){
     console.log(this. departamentoSeleccionado);
     console.log(this.suministroSeleccionado);
-    if(this. suministroSeleccionado.sum_ide > 0  && this.departamentoSeleccionado.dpr_Ide > 0 ){
-      let idV = 0;
-      let detalle = new Egreso();
-      let sEgrso = new SuministroEgreso();
-      sEgrso.suministro = this.suministroSeleccionado;
-      sEgrso.seg_can = 0;
-      sEgrso.seg_ide = idV;
+    if ((this. departamentoSeleccionado === undefined && this.suministroSeleccionado === undefined) || (this. departamentoSeleccionado === null && this.suministroSeleccionado === null)){
 
-
-      detalle.departamento  = this.departamentoSeleccionado;
-
-      detalle.fecha = this.fechaSeleccionada;
-      detalle.suministroEgreso = sEgrso;
-
-
-      console.log(detalle);
-      this.suministroEgreso.push(detalle);
-      this.dataSource.data = this.suministroEgreso;
-
-      setTimeout(() => {
-        this.limpiarElementos();
-      }, 2000);
-
-
-
-    }else{
-      this.mensaje = `Debe agregar suminsitro`;
+      this.mensaje = `Debe seleccionar suminsitro y un departamento.`;
       this.snackBar.open(this.mensaje, "Aviso", { duration: 2000 });
+
+
+    } else {
+      if( this. suministroSeleccionado.sum_ide > 0  && this.departamentoSeleccionado.dpr_Ide > 0 ){
+        let idV = 0;
+        let detalle = new Egreso();
+        let sEgrso = new SuministroEgreso();
+        sEgrso.suministro = this.suministroSeleccionado;
+        sEgrso.seg_can = 0;
+        sEgrso.seg_ide = idV;
+
+
+        detalle.departamento  = this.departamentoSeleccionado;
+
+        detalle.fecha = this.fechaSeleccionada;
+        detalle.suministroEgreso = sEgrso;
+
+
+        console.log(detalle);
+        this.suministroEgreso.push(detalle);
+        this.dataSource.data = this.suministroEgreso;
+
+        setTimeout(() => {
+          this.limpiarElementos();
+        }, 1000);
+
+
+
+      }
+
     }
+
+
   }
   limpiarElementos(){
       this.depart.nativeElement.value = '';
@@ -163,7 +178,8 @@ export class EgresoComponent implements OnInit {
       this.fechaSeleccionada.setMinutes(0);
       this.fechaSeleccionada.setSeconds(0);
       this.fechaSeleccionada.setMilliseconds(0);
-
+      this.suministroSeleccionado = null;
+      this.departamentoSeleccionado = null;
 
   }
 

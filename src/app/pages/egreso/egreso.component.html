@@ -52,14 +52,14 @@
                   </td>
                   <td><span class="fa fa-user"></span></td>
                   <td>
-                    <button mat-raised-button color="primary" (click)="agregar()">Agregar Egreso</button>
+                    <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
                   </td>
                 </tr>
               </table>
 
           </div>
         </div>
-        <mat-toolbar *ngIf="suministroEgreso.length===0">No hay diagnósticos agregados</mat-toolbar>
+        <mat-toolbar *ngIf="suministroEgreso.length===0">No hay suministros agregados</mat-toolbar>
 
         <mat-table [dataSource]="dataSource" matSort>
 
@@ -83,6 +83,14 @@
             <mat-cell *matCellDef="let row"> {{row.departamento.dpr_Nom}} </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <input matInput #cantidad type="number" min="0" value="0">
+            </mat-cell>
+          </ng-container>
+
+
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -99,6 +107,10 @@
 
 
         <mat-toolbar *ngIf="">No hay egresos agregados</mat-toolbar>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <button mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
 
 
 
