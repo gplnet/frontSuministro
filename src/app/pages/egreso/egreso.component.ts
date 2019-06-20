@@ -140,30 +140,42 @@ export class EgresoComponent implements OnInit {
 
     } else {
       if( this. suministroSeleccionado.sum_ide > 0  && this.departamentoSeleccionado.dpr_Ide > 0 ){
-        let idV = 0;
-        let detalle = new Egreso();
-        let sEgrso = new SuministroEgreso();
-        sEgrso.suministro = this.suministroSeleccionado;
-        sEgrso.seg_can = 0;
-        sEgrso.seg_ide = idV;
+        let cont =0;
+        for ( let i=0; i<this.suministroEgreso.length; i++ ){
+          let sumEgrs = this.suministroEgreso[i];
+          if(sumEgrs.suministroEgreso.suministro.sum_ide === this.suministroSeleccionado.sum_ide && sumEgrs.departamento.dpr_Ide === this.departamentoSeleccionado.dpr_Ide){
+            cont++;
+            break;
+          }
+        }
+        if(cont > 0 ){
+          this.mensaje = `El suministro y depatamento se encuentran en la lista`;
+          this.snackBar.open(this.mensaje, "Aviso", { duration: 2000 });
+
+        }else{
+          let idV = 0;
+          let detalle = new Egreso();
+          let sEgrso = new SuministroEgreso();
+          sEgrso.suministro = this.suministroSeleccionado;
+          sEgrso.seg_can = 0;
+          sEgrso.seg_ide = idV;
 
 
-        detalle.departamento  = this.departamentoSeleccionado;
+          detalle.departamento  = this.departamentoSeleccionado;
 
-        detalle.fecha = this.fechaSeleccionada;
-        detalle.suministroEgreso = sEgrso;
-
-
-        console.log(detalle);
-        this.suministroEgreso.push(detalle);
-        this.dataSource.data = this.suministroEgreso;
-
-        setTimeout(() => {
-          this.limpiarElementos();
-        }, 1000);
+          detalle.fecha = this.fechaSeleccionada;
+          detalle.suministroEgreso = sEgrso;
 
 
+          console.log(detalle);
+          this.suministroEgreso.push(detalle);
+          this.dataSource.data = this.suministroEgreso;
 
+          setTimeout(() => {
+            this.limpiarElementos();
+          }, 1000);
+
+        }
       }
 
     }
