@@ -20,6 +20,7 @@ export class EgresoComponent implements OnInit {
 
   @ViewChild('depart') depart: ElementRef;
   @ViewChild('suminst') suminst: ElementRef;
+  @ViewChild('acept') acept: ElementRef;
 
 
   displayedColumns = ['id', 'descripcion', 'modelo', 'departamento','cantidad', 'acciones'];
@@ -122,11 +123,40 @@ export class EgresoComponent implements OnInit {
     });
 
   }
-  aceptar(){
+  aceptar() {
+    let verfica = {};
+    let stado = false;
+
+    for (let j=0; j<this.suministroEgreso.length; j++) {
+      if(j===0){verfica = this.suministroEgreso[j];}
+      console.log(verfica);
+      let sumSelect = this.suministroEgreso[j];
+      console.log(sumSelect);
+      if(sumSelect['departamento'].dpr_Ide !== verfica['departamento'].dpr_Ide ){
+        stado = true;
+      }
+    }
+    console.log(stado);
+    if (stado) {
+      this.mensaje = `Existen suministros asignados a varios departamentos, revise datos`;
+      this.snackBar.open(this.mensaje, "Aviso", { duration: 4000 });
+    } else {
+      console.log('loga');
+      console.log(this.suministroEgreso);
+      this.dataSource.data = null;
+
+    }
 
   }
   estadoBotonRegistrar(){
     return (this.suministroEgreso.length === 0 );
+  }
+
+  eliminar(row,i){
+    console.log(row);
+    console.log(i);
+    this.suministroEgreso.splice(i, 1);
+    this.dataSource.data = this.suministroEgreso;
   }
 
   agregar(){
@@ -192,6 +222,7 @@ export class EgresoComponent implements OnInit {
       this.fechaSeleccionada.setMilliseconds(0);
       this.suministroSeleccionado = null;
       this.departamentoSeleccionado = null;
+
 
   }
 

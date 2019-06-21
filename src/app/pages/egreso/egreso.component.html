@@ -93,8 +93,8 @@
 
           <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
+            <mat-cell *matCellDef="let row; let i=index">
+              <button mat-button color="accent" (click)="eliminar(row,i)">Eliminar</button>
             </mat-cell>
           </ng-container>
 
@@ -110,7 +110,7 @@
         <br/>
         <mat-divider></mat-divider>
         <br/>
-        <button mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
+        <button #acept mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
 
 
 
