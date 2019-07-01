@@ -86,7 +86,7 @@
           <ng-container matColumnDef="cantidad">
             <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <input matInput #cantidad type="number" min="0" value="0">
+              <input matInput #cantidad type="number" min="0" value="0" (change)="cambio($event.target.value)">
             </mat-cell>
           </ng-container>
 

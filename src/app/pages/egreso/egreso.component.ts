@@ -30,6 +30,9 @@ export class EgresoComponent implements OnInit {
   departamentos:Departamento [] = [];
   suministroEgreso: Egreso [] = [];
 
+  listaCantidades = [];
+  listaSEgreso: SuministroEgreso[] = [];
+
   myControl: FormControl = new FormControl();
   myControlDepart: FormControl = new FormControl();
 
@@ -37,6 +40,8 @@ export class EgresoComponent implements OnInit {
   mensaje: string;
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+  cantidad: number;
+  valorActual: number;
 
   filteredOptions: Observable<any[]>;
   filteredOptionsDepart: Observable<any[]>;
@@ -144,12 +149,32 @@ export class EgresoComponent implements OnInit {
       console.log('loga');
       console.log(this.suministroEgreso);
       this.dataSource.data = null;
+      for(let k = 0; k < this.suministroEgreso.length; k++ ) {
+        this.suministroEgreso[k]['suministroEgreso'][k].seg_can = this.listaCantidades[k];
+        console.log(this.suministroEgreso[k]['suministroEgreso'][k].seg_can);
+        console.log(this.suministroEgreso[k]);
+        this.sS.registrar(this.suministroEgreso[k]).subscribe(data => {
+          console.log(data);
+          if (data) {
+            this.snackBar.open("Se registró", "Aviso", { duration: 2000 });
+          } else {
+            this.snackBar.open("Error al registrar", "Aviso", { duration: 2000 });
+          }
+        });
+      }
+      setTimeout(() => {
+        this.limpiarElementos();
+        this.suministroEgreso.length = 0;
+      }, 2000);
 
     }
 
   }
   estadoBotonRegistrar(){
     return (this.suministroEgreso.length === 0 );
+  }
+  cambio(valor: number){
+    this.listaCantidades.push(valor);
   }
 
   eliminar(row,i){
@@ -162,6 +187,7 @@ export class EgresoComponent implements OnInit {
   agregar(){
     console.log(this. departamentoSeleccionado);
     console.log(this.suministroSeleccionado);
+    console.log('1--->'+ this.cantidad);
     if ((this. departamentoSeleccionado === undefined && this.suministroSeleccionado === undefined) || (this. departamentoSeleccionado === null && this.suministroSeleccionado === null)){
 
       this.mensaje = `Debe seleccionar suminsitro y un departamento.`;
@@ -173,7 +199,7 @@ export class EgresoComponent implements OnInit {
         let cont =0;
         for ( let i=0; i<this.suministroEgreso.length; i++ ){
           let sumEgrs = this.suministroEgreso[i];
-          if(sumEgrs.suministroEgreso.suministro.sum_ide === this.suministroSeleccionado.sum_ide && sumEgrs.departamento.dpr_Ide === this.departamentoSeleccionado.dpr_Ide){
+          if(sumEgrs.suministroEgreso[i].suministro.sum_ide === this.suministroSeleccionado.sum_ide && sumEgrs.departamento.dpr_Ide === this.departamentoSeleccionado.dpr_Ide){
             cont++;
             break;
           }
@@ -187,14 +213,15 @@ export class EgresoComponent implements OnInit {
           let detalle = new Egreso();
           let sEgrso = new SuministroEgreso();
           sEgrso.suministro = this.suministroSeleccionado;
-          sEgrso.seg_can = 0;
+          console.log('2--->'+ this.cantidad);
+          sEgrso.seg_can = this.cantidad;
           sEgrso.seg_ide = idV;
 
 
           detalle.departamento  = this.departamentoSeleccionado;
 
           detalle.fecha = this.fechaSeleccionada;
-          detalle.suministroEgreso = sEgrso;
+          detalle.suministroEgreso.push(sEgrso);
 
 
           console.log(detalle);

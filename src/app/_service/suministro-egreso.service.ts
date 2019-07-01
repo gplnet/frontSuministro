@@ -4,6 +4,7 @@ import { HOST, TOKEN_NAME } from '../_shared/var.constant';
 import { Subject } from 'rxjs';
 import { SuministroEgreso } from '../_model/suministroEgreso';
 import { Suministro } from '../_model/suministro';
+import { Egreso } from '../_model/egreso';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Suministro } from '../_model/suministro';
 export class SuministroEgresoService {
 
   url: string = `${HOST}/suministro`;
+  urlEgreso: string = `${HOST}/egreso`;
   sumEgCambio = new Subject<Suministro[]>();
   mensaje = new Subject<string>();
 
@@ -37,22 +39,22 @@ export class SuministroEgresoService {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }
-  registrar(sEgreso: Suministro){
+  registrar(sEgreso: Egreso){
     console.log('LOLA', sEgreso);
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.post(`${this.url}/registrar`, sEgreso ,{
+    return this.http.post(`${this.urlEgreso}/registrar`, sEgreso ,{
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }
-  modificar(sEgreso: Suministro){
+  modificar(sEgreso: Egreso){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.put(`${this.url}/actualizar`, sEgreso ,{
+    return this.http.put(`${this.urlEgreso}/actualizar`, sEgreso ,{
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }
-  eliminar(sEgreso: Suministro){
+  eliminar(sEgreso: Egreso){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.delete(`${this.url}/eliminar/${sEgreso.sum_ide}`, {
+    return this.http.delete(`${this.urlEgreso}/eliminar/${sEgreso.egr_ide}`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
   }
