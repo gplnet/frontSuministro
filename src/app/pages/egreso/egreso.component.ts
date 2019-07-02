@@ -150,7 +150,7 @@ export class EgresoComponent implements OnInit {
       console.log(this.suministroEgreso);
       this.dataSource.data = null;
       for(let k = 0; k < this.suministroEgreso.length; k++ ) {
-        this.suministroEgreso[k]['suministroEgreso'][k].seg_can = this.listaCantidades[k];
+        this.suministroEgreso[k]['suministroEgreso'][k].seg_can = (parseFloat(this.listaCantidades[k])*1);
         console.log(this.suministroEgreso[k]['suministroEgreso'][k].seg_can);
         console.log(this.suministroEgreso[k]);
         this.sS.registrar(this.suministroEgreso[k]).subscribe(data => {
@@ -220,7 +220,7 @@ export class EgresoComponent implements OnInit {
 
           detalle.departamento  = this.departamentoSeleccionado;
 
-          detalle.fecha = this.fechaSeleccionada;
+          detalle.egr_fec = this.fechaSeleccionada;
           detalle.suministroEgreso.push(sEgrso);
 
 
