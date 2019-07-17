@@ -70,12 +70,12 @@
 
           <ng-container matColumnDef="descripcion">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[i].suministro.sum_cod}} - {{row.suministroEgreso[i].suministro.sum_col}}</mat-cell>
+            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[0].suministro.sum_cod}} - {{row.suministroEgreso[0].suministro.sum_col}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="modelo">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[i].suministro.sum_mdl}} </mat-cell>
+            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[0].suministro.sum_mdl}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="departamento">

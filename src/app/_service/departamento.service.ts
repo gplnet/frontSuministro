@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Departamento } from "./../_model/departamento";
+import { Departamento } from './../_model/departamento';
 import { HOST, TOKEN_NAME } from '../_shared/var.constant';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -26,7 +26,7 @@ export class DepartamentoService {
 
   getListar() {
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.get<Departamento[]>(`${this.url }/listar`,{
+    return this.http.get<Departamento[]>(`${this.url }/listar`, {
     headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }

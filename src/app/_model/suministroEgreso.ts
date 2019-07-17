@@ -1,8 +1,8 @@
 import { Suministro } from './suministro';
 
 export class SuministroEgreso {
-    seg_ide: number;
-    seg_can: number;
-    suministro: Suministro;
+    public seg_ide: number;
+    public seg_can: number;
+    public suministro: Suministro;
 
 }

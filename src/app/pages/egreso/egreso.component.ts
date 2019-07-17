@@ -1,8 +1,9 @@
+import {DepartamentoService} from '../../_service/departamento.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SuministroEgresoService } from 'src/app/_service/suministro-egreso.service';
 import { Suministro } from 'src/app/_model/suministro';
-import { DepartamentoService } from 'src/app/_service/departamento.service';
+
 import { Departamento } from 'src/app/_model/departamento';
 import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
 import { MatSnackBar, MatInput } from '@angular/material';
@@ -10,6 +11,7 @@ import { Egreso } from 'src/app/_model/egreso';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-egreso',
@@ -53,6 +55,7 @@ export class EgresoComponent implements OnInit {
 
   constructor(private sS: SuministroEgresoService,
               private sD: DepartamentoService,
+              private datePipe: DatePipe,
               public snackBar: MatSnackBar) {
                 this.dataSource = new MatTableDataSource<Egreso>();
               }
@@ -85,12 +88,12 @@ export class EgresoComponent implements OnInit {
     }
   }
   filterDepart(val: any) {
+    console.log(val);
     if (val != null && val.dpr_Ide > 0) {
-      //console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Nom.toLowerCase().includes(val.dpr_Nom.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.dpr_Res.toLowerCase()) );
     } else {
-      //console.log(val);
+      console.log(val);
       return this.departamentos.filter(option =>
         option.dpr_Res.toLowerCase().includes(val.toLowerCase()) || option.dpr_Res.toLowerCase().includes(val.toLowerCase()));
     }
@@ -108,6 +111,7 @@ export class EgresoComponent implements OnInit {
     console.log(this.suministroSeleccionado);
   }
   seleccionarDepart(e){
+    console.log(e);
     this.departamentoSeleccionado = e.option.value;
     console.log(this.departamentoSeleccionado);
   }
@@ -122,8 +126,8 @@ export class EgresoComponent implements OnInit {
 
   listarDepartamento(){
     this.sD.getListar().subscribe(data =>{
+      console.log(data);
       this.departamentos = data;
-      ///console.log(data);
 
     });
 
@@ -132,15 +136,15 @@ export class EgresoComponent implements OnInit {
     let verfica = {};
     let stado = false;
 
-    for (let j=0; j<this.suministroEgreso.length; j++) {
+    /* for (let j=0; j<this.suministroEgreso.length; j++) {
       if(j===0){verfica = this.suministroEgreso[j];}
       console.log(verfica);
       let sumSelect = this.suministroEgreso[j];
       console.log(sumSelect);
-      if(sumSelect['departamento'].dpr_Ide !== verfica['departamento'].dpr_Ide ){
+      if(sumSelect['departamento'].dpr_Ide !== verfica['departamento'].dpr_ide ){
         stado = true;
       }
-    }
+    } */
     console.log(stado);
     if (stado) {
       this.mensaje = `Existen suministros asignados a varios departamentos, revise datos`;
@@ -150,8 +154,14 @@ export class EgresoComponent implements OnInit {
       console.log(this.suministroEgreso);
       this.dataSource.data = null;
       for(let k = 0; k < this.suministroEgreso.length; k++ ) {
-        this.suministroEgreso[k]['suministroEgreso'][k].seg_can = (parseFloat(this.listaCantidades[k])*1);
-        console.log(this.suministroEgreso[k]['suministroEgreso'][k].seg_can);
+        this.suministroEgreso[k]['suministroEgreso'][0].seg_can = (parseFloat(this.listaCantidades[k])*1);
+        console.log(this.suministroEgreso[k]['suministroEgreso'][0].seg_can);
+        console.log(this.suministroEgreso[k]);
+        console.log(this.suministroEgreso);
+       /*  */
+      }
+      //registro los valores en BD
+      for (let k = 0; k < this.suministroEgreso.length; k++) {
         console.log(this.suministroEgreso[k]);
         this.sS.registrar(this.suministroEgreso[k]).subscribe(data => {
           console.log(data);
@@ -174,6 +184,7 @@ export class EgresoComponent implements OnInit {
     return (this.suministroEgreso.length === 0 );
   }
   cambio(valor: number){
+    this.listaCantidades.length = 0;
     this.listaCantidades.push(valor);
   }
 
@@ -188,6 +199,7 @@ export class EgresoComponent implements OnInit {
     console.log(this. departamentoSeleccionado);
     console.log(this.suministroSeleccionado);
     console.log('1--->'+ this.cantidad);
+    //this.suministroEgreso = null;
     if ((this. departamentoSeleccionado === undefined && this.suministroSeleccionado === undefined) || (this. departamentoSeleccionado === null && this.suministroSeleccionado === null)){
 
       this.mensaje = `Debe seleccionar suminsitro y un departamento.`;
@@ -199,7 +211,8 @@ export class EgresoComponent implements OnInit {
         let cont =0;
         for ( let i=0; i<this.suministroEgreso.length; i++ ){
           let sumEgrs = this.suministroEgreso[i];
-          if(sumEgrs.suministroEgreso[i].suministro.sum_ide === this.suministroSeleccionado.sum_ide && sumEgrs.departamento.dpr_Ide === this.departamentoSeleccionado.dpr_Ide){
+          console.log(sumEgrs);
+          if(sumEgrs.suministroEgreso[0].suministro.sum_ide === this.suministroSeleccionado.sum_ide && sumEgrs.departamento.dpr_Ide === this.departamentoSeleccionado.dpr_Ide){
             cont++;
             break;
           }
@@ -211,7 +224,7 @@ export class EgresoComponent implements OnInit {
         }else{
           let idV = 0;
           let detalle = new Egreso();
-          let sEgrso = new SuministroEgreso();
+          const sEgrso = new SuministroEgreso();
           sEgrso.suministro = this.suministroSeleccionado;
           console.log('2--->'+ this.cantidad);
           sEgrso.seg_can = this.cantidad;
@@ -219,13 +232,16 @@ export class EgresoComponent implements OnInit {
 
 
           detalle.departamento  = this.departamentoSeleccionado;
-
-          detalle.egr_fec = this.fechaSeleccionada;
+          console.log('fecha', this.datePipe.transform(this.fechaSeleccionada, "dd/MM/yyyy"));
+          let fechaformateada = this.datePipe.transform(this.fechaSeleccionada, "dd/MM/yyyy");
+          detalle.egr_fec = fechaformateada;
           detalle.suministroEgreso.push(sEgrso);
+
 
 
           console.log(detalle);
           this.suministroEgreso.push(detalle);
+          console.log(this.suministroEgreso);
           this.dataSource.data = this.suministroEgreso;
 
           setTimeout(() => {
@@ -239,7 +255,7 @@ export class EgresoComponent implements OnInit {
 
 
   }
-  limpiarElementos(){
+  limpiarElementos() {
       this.depart.nativeElement.value = '';
       this.suminst.nativeElement.value = '';
       this.fechaSeleccionada = new Date();
@@ -249,6 +265,7 @@ export class EgresoComponent implements OnInit {
       this.fechaSeleccionada.setMilliseconds(0);
       this.suministroSeleccionado = null;
       this.departamentoSeleccionado = null;
+
 
 
   }

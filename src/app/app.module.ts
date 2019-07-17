@@ -21,6 +21,7 @@ import { DepartamentoComponent } from './pages/departamento/departamento.compone
 import { DepartamentoEdicionComponent } from './pages/departamento/departamento-edicion/departamento-edicion.component';
 import { ProveedorComponent } from './pages/proveedor/proveedor.component';
 import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/proveedor-edicion.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -52,7 +53,7 @@ import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/p
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [EquipoService, LoginService, GuardService],
+  providers: [EquipoService, LoginService, GuardService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
