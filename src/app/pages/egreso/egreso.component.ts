@@ -12,6 +12,7 @@ import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { standardizeConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-egreso',
@@ -33,6 +34,7 @@ export class EgresoComponent implements OnInit {
   suministroEgreso: Egreso [] = [];
 
   listaCantidades = [];
+  respaldoListCantidades = [];
   listaSEgreso: SuministroEgreso[] = [];
 
   myControl: FormControl = new FormControl();
@@ -152,9 +154,10 @@ export class EgresoComponent implements OnInit {
     } else {
       console.log('loga');
       console.log(this.suministroEgreso);
+      console.log(this.listaCantidades);
       this.dataSource.data = null;
       for(let k = 0; k < this.suministroEgreso.length; k++ ) {
-        this.suministroEgreso[k]['suministroEgreso'][0].seg_can = (parseFloat(this.listaCantidades[k])*1);
+        this.suministroEgreso[k]['suministroEgreso'][0].seg_can = (parseFloat(this.listaCantidades[k]['cantidad'])*1);
         console.log(this.suministroEgreso[k]['suministroEgreso'][0].seg_can);
         console.log(this.suministroEgreso[k]);
         console.log(this.suministroEgreso);
@@ -183,16 +186,42 @@ export class EgresoComponent implements OnInit {
   estadoBotonRegistrar(){
     return (this.suministroEgreso.length === 0 );
   }
-  cambio(valor: number){
-    this.listaCantidades.length = 0;
-    this.listaCantidades.push(valor);
+
+  cambio(event, row){
+      //Busco en arreglo y reasigno valor
+      console.log(row);
+
+      for(let i=0; i < this.listaCantidades.length; i++) {
+        if ( this.listaCantidades[i]['departamento'] ===  row.departamento.dpr_Ide &&  this.listaCantidades[i]['suministro'] ===  row.suministroEgreso[0].suministro['sum_ide'] ) {
+          this.listaCantidades[i]['cantidad'] = event.target.value;
+        }
+      }
+    console.log(this.listaCantidades);
+    //this.respaldoListCantidades.length = 0;
+    this.respaldoListCantidades = [...this.listaCantidades];
+    console.log(this.respaldoListCantidades);
+    //this.listaCantidades.length = 0;
+    //this.listaCantidades.push(event.target.value);
+
+  }
+
+  existeValor(id){
+    let stado: boolean = false;
+    for(let i=0; i < this.listaCantidades.length; i++) {
+      if ( this.listaCantidades[i]['target'] === id) {
+        stado = true;
+      }
+    }
+    return stado;
   }
 
   eliminar(row,i){
     console.log(row);
     console.log(i);
     this.suministroEgreso.splice(i, 1);
+    this.listaCantidades.splice(i, 1);
     this.dataSource.data = this.suministroEgreso;
+    console.log(this.listaCantidades);
   }
 
   agregar(){
@@ -239,14 +268,24 @@ export class EgresoComponent implements OnInit {
 
 
 
+
           console.log(detalle);
           this.suministroEgreso.push(detalle);
           console.log(this.suministroEgreso);
+
+          console.log(this.respaldoListCantidades);
+          this.listaCantidades.length = 0;
+          for(let  j=0; j< this.suministroEgreso.length; j++){
+            this.listaCantidades.push({departamento: this.suministroEgreso[j]['departamento'].dpr_Ide, suministro: this.suministroEgreso[j]['suministroEgreso'][0]['suministro'].sum_ide,cantidad:0});
+          }
+          console.log(this.listaCantidades);
           this.dataSource.data = this.suministroEgreso;
 
           setTimeout(() => {
             this.limpiarElementos();
+            this.reasignarValores();
           }, 1000);
+          console.log(this.listaCantidades);
 
         }
       }
@@ -254,6 +293,21 @@ export class EgresoComponent implements OnInit {
     }
 
 
+  }
+  reasignarValores(){
+    let checkeo = false;
+    for (let i=0; i < this.listaCantidades.length; i++) {
+      for(let j=0; this.respaldoListCantidades.length; j++){
+        if(  this.listaCantidades[i].departamento === this.respaldoListCantidades[j].departamento ){
+          console.log('listaCantidades',this.listaCantidades[i].cantidad );
+          console.log('respaldoListCantidades',this.respaldoListCantidades[j].cantidad );
+          this.listaCantidades[i].cantidad = this.respaldoListCantidades[j].cantidad;
+          checkeo = true;
+          break;
+        }
+      }
+      if(checkeo){break;}
+    }
   }
   limpiarElementos() {
       this.depart.nativeElement.value = '';
