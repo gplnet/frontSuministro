@@ -8,7 +8,7 @@ import { Departamento } from 'src/app/_model/departamento';
 import { SuministroEgreso } from 'src/app/_model/suministroEgreso';
 import { MatSnackBar, MatInput } from '@angular/material';
 import { Egreso } from 'src/app/_model/egreso';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, finalize } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -33,6 +33,8 @@ export class EgresoComponent implements OnInit {
   departamentos:Departamento [] = [];
   suministroEgreso: Egreso [] = [];
 
+  suministroEgresoEnLista: Egreso [] = [];
+
   listaCantidades = [];
   respaldoListCantidades = [];
   listaSEgreso: SuministroEgreso[] = [];
@@ -52,6 +54,7 @@ export class EgresoComponent implements OnInit {
 
   suministroSeleccionado: Suministro;
   departamentoSeleccionado: Departamento;
+  isLoading: boolean;
 
 
 
@@ -134,9 +137,21 @@ export class EgresoComponent implements OnInit {
     });
 
   }
+
+  filtrarDepart(){
+    this.departamentos.length = 0;
+    let idD = this.departamentoSeleccionado.dpr_Ide;
+    this.sD.getDepartamentoPorId(idD).subscribe(data => {
+      console.log(data);
+      this.departamentos.push(data);
+    });
+
+  }
   aceptar() {
     let verfica = {};
+    let cont = 0;
     let stado = false;
+
 
     /* for (let j=0; j<this.suministroEgreso.length; j++) {
       if(j===0){verfica = this.suministroEgreso[j];}
@@ -164,17 +179,27 @@ export class EgresoComponent implements OnInit {
        /*  */
       }
       //registro los valores en BD
+
       for (let k = 0; k < this.suministroEgreso.length; k++) {
         console.log(this.suministroEgreso[k]);
-        this.sS.registrar(this.suministroEgreso[k]).subscribe(data => {
-          console.log(data);
-          if (data) {
-            this.snackBar.open("Se registró", "Aviso", { duration: 2000 });
-          } else {
-            this.snackBar.open("Error al registrar", "Aviso", { duration: 2000 });
-          }
-        });
+        if(k === 0){
+          this.suministroEgresoEnLista.length = 0;
+          this.suministroEgresoEnLista.push(this.suministroEgreso[k]);
+        }else{
+          this.suministroEgresoEnLista[0]['suministroEgreso'].push(this.suministroEgreso[k]['suministroEgreso'][0]);
+        }
+        console.log(this.suministroEgresoEnLista);
       }
+
+      this.sS.registrar(this.suministroEgresoEnLista[0]).subscribe(data => {
+        console.log(data);
+        if (data) {
+
+          this.snackBar.open("Se registró", "Aviso", { duration: 2000 });
+        } else {
+          this.snackBar.open("Error al registrar", "Aviso", { duration: 2000 });
+        }
+      });
       setTimeout(() => {
         this.limpiarElementos();
         this.suministroEgreso.length = 0;
@@ -273,6 +298,7 @@ export class EgresoComponent implements OnInit {
           this.suministroEgreso.push(detalle);
           console.log(this.suministroEgreso);
 
+
           console.log(this.respaldoListCantidades);
           this.listaCantidades.length = 0;
           for(let  j=0; j< this.suministroEgreso.length; j++){
@@ -282,6 +308,7 @@ export class EgresoComponent implements OnInit {
           this.dataSource.data = this.suministroEgreso;
 
           setTimeout(() => {
+            this.filtrarDepart();
             this.limpiarElementos();
             this.reasignarValores();
           }, 1000);
@@ -295,20 +322,26 @@ export class EgresoComponent implements OnInit {
 
   }
   reasignarValores(){
-    let checkeo = false;
-    for (let i=0; i < this.listaCantidades.length; i++) {
-      for(let j=0; this.respaldoListCantidades.length; j++){
-        if(  this.listaCantidades[i].departamento === this.respaldoListCantidades[j].departamento ){
-          console.log('listaCantidades',this.listaCantidades[i].cantidad );
-          console.log('respaldoListCantidades',this.respaldoListCantidades[j].cantidad );
-          this.listaCantidades[i].cantidad = this.respaldoListCantidades[j].cantidad;
-          checkeo = true;
-          break;
+    //let checkeo = false;
+    if(this.listaCantidades.length > 0 && this.respaldoListCantidades.length > 0){
+      for (let i=0; i < this.listaCantidades.length; i++) {
+        for(let j=0; j < this.respaldoListCantidades.length; j++){
+          if(this.listaCantidades[i].cantidad === 0){
+            if(  this.listaCantidades[i].departamento === this.respaldoListCantidades[j].departamento &&  this.listaCantidades[i].suministro === this.respaldoListCantidades[j].suministro) {
+              console.log('listaCantidades',this.listaCantidades[i].cantidad );
+              console.log('respaldoListCantidades',this.respaldoListCantidades[j].cantidad );
+              this.listaCantidades[i].cantidad = this.respaldoListCantidades[j].cantidad;
+            }
+            //checkeo = true;
+           // break;
+          }
         }
+        //if(checkeo){break;}
       }
-      if(checkeo){break;}
     }
   }
+
+
   limpiarElementos() {
       this.depart.nativeElement.value = '';
       this.suminst.nativeElement.value = '';
