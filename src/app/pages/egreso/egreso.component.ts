@@ -37,6 +37,7 @@ export class EgresoComponent implements OnInit {
 
   listaCantidades = [];
   respaldoListCantidades = [];
+  stockSumSelected =  [];
   listaSEgreso: SuministroEgreso[] = [];
 
   myControl: FormControl = new FormControl();
@@ -147,6 +148,14 @@ export class EgresoComponent implements OnInit {
     });
 
   }
+
+  obtenerStockActualSum(){
+    let idSum = this.suministroSeleccionado.sum_ide;
+    this.sS.getSuministroEgresoPorId(idSum).subscribe(data =>{
+      this.stockSumSelected.push(data);
+      console.log(data);
+    });
+  }
   aceptar() {
     let verfica = {};
     let cont = 0;
@@ -213,20 +222,36 @@ export class EgresoComponent implements OnInit {
   }
 
   cambio(event, row){
-      //Busco en arreglo y reasigno valor
-      console.log(row);
-
-      for(let i=0; i < this.listaCantidades.length; i++) {
-        if ( this.listaCantidades[i]['departamento'] ===  row.departamento.dpr_Ide &&  this.listaCantidades[i]['suministro'] ===  row.suministroEgreso[0].suministro['sum_ide'] ) {
-          this.listaCantidades[i]['cantidad'] = event.target.value;
+      let stadoAct = false;
+      console.log('lola',row['suministroEgreso'][0].suministro.sum_ide);
+      for(let h =0; h<this.stockSumSelected.length;h++){
+        if( this.stockSumSelected[h]['sum_ide']  === row['suministroEgreso'][0].suministro.sum_ide && this.stockSumSelected[h]['sum_cnt']< event.target.value ){
+          stadoAct = true;
         }
       }
-    console.log(this.listaCantidades);
-    //this.respaldoListCantidades.length = 0;
-    this.respaldoListCantidades = [...this.listaCantidades];
-    console.log(this.respaldoListCantidades);
-    //this.listaCantidades.length = 0;
-    //this.listaCantidades.push(event.target.value);
+      //veriico que la cantidad no vaya ser superior al stock actual
+      if(stadoAct){
+        let valor = event.target.value;
+        event.target.value = 0;
+        this.snackBar.open("El valor ingresado " +valor+" excede del Stock disponible", "Aviso", { duration: 4000 });
+
+      }else{
+        //Busco en arreglo y reasigno valor
+        console.log(row);
+
+        for(let i=0; i < this.listaCantidades.length; i++) {
+          if ( this.listaCantidades[i]['departamento'] ===  row.departamento.dpr_Ide &&  this.listaCantidades[i]['suministro'] ===  row.suministroEgreso[0].suministro['sum_ide'] ) {
+            this.listaCantidades[i]['cantidad'] = event.target.value;
+          }
+        }
+      console.log(this.listaCantidades);
+      //this.respaldoListCantidades.length = 0;
+      this.respaldoListCantidades = [...this.listaCantidades];
+      console.log(this.respaldoListCantidades);
+      //this.listaCantidades.length = 0;
+      //this.listaCantidades.push(event.target.value);
+
+    }
 
   }
 
@@ -309,6 +334,7 @@ export class EgresoComponent implements OnInit {
 
           setTimeout(() => {
             this.filtrarDepart();
+            this.obtenerStockActualSum();
             this.limpiarElementos();
             this.reasignarValores();
           }, 1000);
