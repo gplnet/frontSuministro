@@ -211,6 +211,7 @@ export class EgresoComponent implements OnInit {
       });
       setTimeout(() => {
         this.limpiarElementos();
+        this.listarDepartamento();
         this.suministroEgreso.length = 0;
       }, 2000);
 
