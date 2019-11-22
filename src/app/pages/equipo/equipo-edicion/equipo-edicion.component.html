@@ -1,0 +1,37 @@
+<mat-card>Ingrese los datos del equipo</mat-card>
+
+<br/>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" #loginForm="ngForm">
+
+    <div [hidden]="true">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="ID" formControlName="eqp_ide">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Marca" formControlName="eqp_mrc">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Modelo" formControlName="eqp_mdl">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+
+        <input matInput placeholder="Estado" formControlName="eqp_est" type="text">
+
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+    <mat-icon>done</mat-icon>
+    <span>Aceptar</span>
+  </button>
+    <button mat-raised-button color="accent" routerLink='/equipo' type="button">
+    <mat-icon>close</mat-icon>
+    <span>Cancelar</span>
+  </button>
+</form>
+
+<br/>
