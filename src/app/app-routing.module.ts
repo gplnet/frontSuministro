@@ -13,6 +13,9 @@ import { ProveedorComponent } from './pages/proveedor/proveedor.component';
 import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/proveedor-edicion.component';
 import { SuministroComponent } from './pages/suministro/suministro.component';
 import { SuministroEdicionComponent } from './pages/suministro/suministro-edicion/suministro-edicion.component';
+import { IngresoComponent } from './pages/ingreso/ingreso.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { UsuarioEdicionComponent } from './pages/usuario/usuario-edicion/usuario-edicion.component';
 const routes: Routes = [
   
   { path: 'not-403', component: Not403Component },
@@ -41,7 +44,16 @@ const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'}
   ], canActivate: [GuardService]},
 
+  {path: 'usuario', component: UsuarioComponent, children: [
+    {path: 'nuevo', component: UsuarioEdicionComponent},
+    {path: 'edicion/:id', component: UsuarioEdicionComponent},
+    {path: '', redirectTo: 'login', pathMatch: 'full'}
+  ], canActivate: [GuardService]},
+
+
+
   { path: 'egreso', component: EgresoComponent, canActivate: [GuardService]},
+  { path: 'ingreso', component: IngresoComponent, canActivate: [GuardService]},
 
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }

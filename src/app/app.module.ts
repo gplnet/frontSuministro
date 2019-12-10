@@ -24,6 +24,14 @@ import { ProveedorEdicionComponent } from './pages/proveedor/proveedor-edicion/p
 import { DatePipe } from '@angular/common';
 import { SuministroComponent } from './pages/suministro/suministro.component';
 import { SuministroEdicionComponent } from './pages/suministro/suministro-edicion/suministro-edicion.component';
+import { IngresoComponent } from './pages/ingreso/ingreso.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { UsuarioEdicionComponent } from './pages/usuario/usuario-edicion/usuario-edicion.component';
+import { DepartamentoService } from './_service/departamento.service';
+import { ProveedorService } from './_service/proveedor.service';
+import { SuministroEgresoService } from './_service/suministro-egreso.service';
+import { SuministroService } from './_service/suministro.service';
+import { UsuarioService } from './_service/usuario.service';
 
 
 
@@ -46,6 +54,9 @@ import { SuministroEdicionComponent } from './pages/suministro/suministro-edicio
     ProveedorEdicionComponent,
     SuministroComponent,
     SuministroEdicionComponent,
+    IngresoComponent,
+    UsuarioComponent,
+    UsuarioEdicionComponent,
 
   ],
   imports: [
@@ -57,7 +68,11 @@ import { SuministroEdicionComponent } from './pages/suministro/suministro-edicio
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [EquipoService, LoginService, GuardService, DatePipe],
+  providers: [EquipoService, DepartamentoService,
+              ProveedorService, SuministroEgresoService,
+              UsuarioService,
+              SuministroService, LoginService, GuardService,
+              DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
