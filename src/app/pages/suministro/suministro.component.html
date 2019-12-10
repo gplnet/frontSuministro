@@ -1,0 +1,84 @@
+<mat-toolbar>Suministros</mat-toolbar>
+<router-outlet></router-outlet>
+
+<div class="example-container mat-elevation-z8" *ngIf="route.children.length === 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-10" style="float: left;">
+                    <div class="example-header">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar Suministro">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" style="float: right;">
+                    <div class="example-header">
+                        <div class="btn-group btn-group-sm " style="float: right;">
+                            <button title="Nuevo Suministro" style="background-color: green;" mat-raised-button color="primary" routerLink='/suministro/nuevo'><mat-icon>add</mat-icon>Nuevo</button>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+            </div>
+            <div class="col-md-12">
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_ide}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cantidad">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> CANTIDAD </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_cnt}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_cod}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="color">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> COLOR </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_col}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modelo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> MODELO </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_mdl}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="volumen">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> VOLUMEN </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.sum_vol}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-button color="primary" [routerLink]="['edicion', row.sum_ide]">Actualizar</button>
+                            <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [length]="cantidad" (page)="mostrarMas($event)"></mat-paginator>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- <button mat-fab color="accent" style="float: right" routerLink='/suministro/nuevo' title='Nuevo'>
+        <mat-icon>create</mat-icon>
+    </button> -->
+</div>
+<br/>

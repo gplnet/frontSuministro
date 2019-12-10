@@ -1,0 +1,121 @@
+
+<mat-toolbar>Registro de Egreso</mat-toolbar>
+<br/>
+<div class="example-container">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <table class="example-full-width" cellspacing="0">
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <!-- <mat-select placeholder="Suministro" [(value)]="idSuminstroSeleccionado">
+                        <mat-option *ngFor="let s of suministros" [value]="s.sum_ide">
+                          {{ s.sum_mdl }} {{ s.sum_mdl }}
+                        </mat-option>
+                      </mat-select> -->
+                      <input #suminst type="text" placeholder="Suministro" matInput [matAutocomplete]="autoSuministro" [formControl]="myControl" >
+                      <mat-autocomplete #autoSuministro="matAutocomplete" [displayWith]="displayFn" (optionSelected)="seleccionarsuministro($event)">
+                        <mat-option *ngFor="let s of filteredOptions | async" [value]="s">
+                          {{ s.sum_mdl }} {{s.sum_col}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+
+                  </td>
+                  <td>
+                    <hr>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <!-- <mat-select placeholder="Departamento" [(value)]="idDepartamentoSeleccionado">
+                        <mat-option *ngFor="let d of departamentos" [value]="d.dpr_Ide">
+                          {{ d.dpr_Nom }} {{ d.dpr_Res}}
+                        </mat-option>
+                      </mat-select> -->
+                      <input #depart type="text" placeholder="Departamento" matInput [matAutocomplete]="autoDepartamento" [formControl]="myControlDepart" >
+                      <mat-autocomplete #autoDepartamento="matAutocomplete" [displayWith]="displayFnDepart" (optionSelected)="seleccionarDepart($event)">
+                        <mat-option *ngFor="let d of filteredOptionsDepart | async" [value]="d">
+                          {{ d.dpr_Nom }} {{d.dpr_Res}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+
+                  </td>
+                  <td><span class="fa fa-user"></span></td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker" placeholder="Escage una fecha"   [(ngModel)]="fechaSeleccionada">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                  <td><span class="fa fa-user"></span></td>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
+                  </td>
+                </tr>
+              </table>
+
+          </div>
+        </div>
+        <mat-toolbar *ngIf="suministroEgreso.length===0">No hay suministros agregados</mat-toolbar>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.departamento.dpr_Ide}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[0].suministro.sum_cod}} - {{row.suministroEgreso[0].suministro.sum_col}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modelo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i=index"> {{row.suministroEgreso[0].suministro.sum_mdl}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="departamento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Departamento </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.departamento.dpr_Nom}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <input matInput #cantidad type="number" min="0" value="0" (change)="cambio($event, row)">
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row; let i=index">
+              <button mat-button color="accent" (click)="eliminar(row,i)">Eliminar</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+          </mat-row>
+
+        </mat-table>
+
+
+        <mat-toolbar *ngIf="">No hay egresos agregados</mat-toolbar>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <button #acept mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
+
+
+
+    </div>
+
+
+
+</div>

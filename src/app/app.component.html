@@ -1,0 +1,75 @@
+<!-- <router-outlet></router-outlet> -->
+<!-- *ngIf="isLoggedIn$ | async as isLoggedIn" -->
+<div class="example-container">
+    <mat-toolbar color="primary" class="example-toolbar" *ngIf="loginService.estaLogeado()">
+        <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+        <h1 class="example-app-name">Sistema de Control de Suministros de Impresión - GAD MUNICIPAL DE MACHALA</h1>
+        <span class="example-spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon class="myClass">more_vert</mat-icon>
+    </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/perfil">
+          <mat-icon>account_box</mat-icon>
+          <span>Mi Perfil</span>
+      </button>
+            <button mat-menu-item routerLink="/login" (click)="loginService.cerrarSesion()" (click)="sidenav.opened = false">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar Sesión</span>
+      </button>
+        </mat-menu>
+        <!-- *ngIf="isLoggedIn$ | async as isLoggedIn" -->
+
+    </mat-toolbar>
+
+
+    <mat-sidenav-container class="example-sidenav-container">
+        <mat-sidenav #sidenav mode="side" style="width: 200px">
+            <!----img src="assets/municipio.png" width="64"-->
+            <!-- <button mat-menu-item (click)="sidenav.toggle()" routerLink="/buscar" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+          <mat-icon>search</mat-icon>
+          <span>Buscar</span>
+       </button> -->
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/equipo" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>local_printshop </mat-icon>
+  <span>Equipo</span>
+</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/suministro" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>devices_other</mat-icon>
+  <span>Suministro</span>
+</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/proveedor" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>account_circle</mat-icon>
+  <span>Proveedor</span>
+  </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/departamento" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>domain</mat-icon>
+  <span>Departamento</span>
+  </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/egreso" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>assignment</mat-icon>
+  <span>Egreso</span>
+  </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/ingreso" style="cursor: pointer" *ngIf="loginService.isAdmin()">
+  <mat-icon>assignment_returned</mat-icon>
+  <span>Ingreso</span>
+  </button>
+
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+</div>

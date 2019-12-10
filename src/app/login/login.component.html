@@ -1,0 +1,61 @@
+<!-- <div class="example-container">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+        <form>
+          <mat-form-field>
+              <input matInput placeholder="Usuario" [(ngModel)]="usuario">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="password" placeholder="Contraseña" [(ngModel)]="contrasena">
+            </mat-form-field>
+
+
+
+            <button mat-raised-button color="primary" (click)="iniciarSesion()">Iniciar Sesión</button>
+        </form>
+    </mat-card-content>
+
+  </mat-card>
+</div> -->
+
+<div class="svgContainer" fxLayout="row" fxLayoutAlign="center">
+  <mat-card fxFlex="400px">
+    <mat-card-header class="titulo" >
+      <mat-card-title >
+        <div class="mat-headline titulo">Login</div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="iniciarSesion()" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <mat-icon>email</mat-icon>
+          <mat-form-field fxFlex>
+            <input matInput placeholder="E-mail" aria-label="Email" id="email" name="email" [(ngModel)]="usuario" >
+
+
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <mat-icon matPrefix>vpn_key</mat-icon>
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Password" arialabel="Password" type="password" id="password" name="password" [(ngModel)]="contrasena" >
+
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="verificaCredenciales">
+          <mat-form-field fxFlex>
+
+            <strong style="color: red;">Credenciales incorrectas</strong>
+            
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" class="margin-top" style="text-align:center">
+          <div class="flex-spacer"></div>
+          <button mat-raised-button type="submit" color="primary" [disabled]="!contrasena">Login</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

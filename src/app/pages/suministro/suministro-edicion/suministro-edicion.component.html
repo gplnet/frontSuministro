@@ -1,0 +1,60 @@
+<div class="example-container mat-elevation-z8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <br/>
+                <mat-card>Ingrese los datos del Suministro</mat-card>
+                <br/>
+                <form class="example-container" [formGroup]="form" (ngSubmit)="operar()" #loginForm="ngForm">
+
+                    <div [hidden]="true">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="ID" formControlName="sum_ide">
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Cantidad" formControlName="sum_cnt">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Codigo" formControlName="sum_cod">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Color" formControlName="sum_col" type="text">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Modelo" formControlName="sum_mdl" type="text">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Volumen" formControlName="sum_vol" type="text">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" *ngIf="!edicion">
+                        <mat-select placeholder="Equipo" [(value)]="idEquipoSeleccionado">
+                            <mat-option *ngFor="let e of equipos" [value]="e">
+                                {{ e.eqp_mdl }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+            <mat-icon>done</mat-icon>
+            <span>Aceptar</span>
+          </button>
+                    <button mat-raised-button color="accent" routerLink='/suministro' type="button">
+            <mat-icon>close</mat-icon>
+            <span>Cancelar</span>
+          </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br/>
