@@ -200,10 +200,10 @@ export class EgresoComponent implements OnInit {
         console.log(this.suministroEgresoEnLista);
       }
 
-      this.sS.registrar(this.suministroEgresoEnLista[0]).subscribe(data => {
+      this.sS.registrar(this.suministroEgresoEnLista[0]).subscribe((data: any) => {
         console.log(data);
         if (data) {
-
+          this.descargarReporte(''+data.egr_Ide);
           this.snackBar.open("Se registró", "Aviso", { duration: 2000 });
         } else {
           this.snackBar.open("Error al registrar", "Aviso", { duration: 2000 });
@@ -216,6 +216,23 @@ export class EgresoComponent implements OnInit {
       }, 2000);
 
     }
+
+  }
+
+  descargarReporte(id){
+    console.log(id);
+    this.sS.generarReporte(id).subscribe(
+      data => {
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display: none');
+        document.body.appendChild(a);
+        a.href = url;
+        a.download = 'egreso.pdf';
+        a.click();
+        return url;
+      }
+    );
 
   }
   estadoBotonRegistrar(){
@@ -247,6 +264,7 @@ export class EgresoComponent implements OnInit {
         }
       console.log(this.listaCantidades);
       //this.respaldoListCantidades.length = 0;
+      // tslint:disable-next-line: align
       this.respaldoListCantidades = [...this.listaCantidades];
       console.log(this.respaldoListCantidades);
       //this.listaCantidades.length = 0;
