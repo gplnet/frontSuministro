@@ -1,3 +1,99 @@
-<p>
-  ingreso works!
-</p>
+<mat-toolbar>Registro de Ingreso</mat-toolbar>
+<br />
+
+<div class="example-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <input #suminst type="text" placeholder="Suministro" matInput [matAutocomplete]="autoSuministro" [formControl]="myControl">
+                                <mat-autocomplete #autoSuministro="matAutocomplete" [displayWith]="displayFn" (optionSelected)="seleccionarsuministro($event)">
+                                    <mat-option *ngFor="let s of filteredOptions | async" [value]="s">
+                                        {{ s.sum_mdl }} {{s.sum_col}}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <hr>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input #porceso type="text" placeholder="Proceso" matInput [matAutocomplete]="autoProceso" [formControl]="myControlProceso">
+                                <mat-autocomplete #autoProceso="matAutocomplete" [displayWith]="displayFnProceso" (optionSelected)="seleccionarProceso($event)">
+                                    <mat-option *ngFor="let d of filteredOptionsProceso | async" [value]="d">
+                                        {{ d.pcs_cod }}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            </mat-form-field>
+                        </td>
+                        <td></td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker" placeholder="Escage una fecha" [(ngModel)]="fechaSeleccionada">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </td>
+                        <td></td>
+                        <td>
+                            <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <mat-toolbar *ngIf="suministrosIngresos.length===0">No hay suministros agregados</mat-toolbar>
+        <mat-table [dataSource]="dataSource" matSort *ngIf="suministrosIngresos.length > 0">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.proceso.pcs_ide}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index"> {{row.suministroIngreso[0].suministro.sum_cod}} - {{ row.suministroIngreso[0].suministro.sum_col}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="modelo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index"> {{row.suministroIngreso[0].suministro.sum_mdl}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef class="align-right">Cantidad</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <input matInput #cantidad type="number" min="0" value="0" (change)="cambio($event, row)" style="text-align: right;">
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="proceso">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Proceso </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.proceso.pcs_cod}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index">
+                    <button mat-button color="accent" (click)="eliminar(row,i)">Eliminar</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+            </mat-row>
+
+        </mat-table>
+        <br/>
+        <mat-divider></mat-divider>
+        <br/>
+        <button #acept mat-raised-button color="primary" (click)="aceptar()" [disabled]="estadoBotonRegistrar()">Registrar</button>
+    </div>
+</div>

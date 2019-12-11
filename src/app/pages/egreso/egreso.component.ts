@@ -236,7 +236,7 @@ export class EgresoComponent implements OnInit {
 
   }
   estadoBotonRegistrar(){
-    return (this.suministroEgreso.length === 0 );
+    return (this.suministroEgreso.length > 0 ? false : true );
   }
 
   cambio(event, row){

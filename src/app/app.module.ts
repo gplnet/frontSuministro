@@ -32,6 +32,7 @@ import { ProveedorService } from './_service/proveedor.service';
 import { SuministroEgresoService } from './_service/suministro-egreso.service';
 import { SuministroService } from './_service/suministro.service';
 import { UsuarioService } from './_service/usuario.service';
+import { IngresoService } from './_service/ingreso.service';
 
 
 
@@ -70,7 +71,7 @@ import { UsuarioService } from './_service/usuario.service';
   ],
   providers: [EquipoService, DepartamentoService,
               ProveedorService, SuministroEgresoService,
-              UsuarioService,
+              UsuarioService, IngresoService,
               SuministroService, LoginService, GuardService,
               DatePipe],
   bootstrap: [AppComponent]
