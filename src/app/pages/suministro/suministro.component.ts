@@ -6,6 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { SuministroService } from 'src/app/_service/suministro.service';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { TOKEN_NAME } from '../../_shared/var.constant';
+import { tokenNotExpired } from 'angular2-jwt';
+import * as decode from 'jwt-decode';
 
 @Component({
   selector: 'app-suministro',
@@ -13,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./suministro.component.css']
 })
 export class SuministroComponent implements OnInit {
+
+  isLoading = false;
 
   lista: Suministro[] = [];
   displayedColumns = ['id', 'cantidad', 'codigo', 'color', 'modelo', 'volumen', 'acciones'];
@@ -86,6 +91,31 @@ export class SuministroComponent implements OnInit {
         this.sum.mensaje.next("No se pudo eliminar");
       }
     });
+  }
+  verStocks(){
+    console.log('ver stocks');
+    let username: string = '';
+    let token = JSON.parse(sessionStorage.getItem(TOKEN_NAME));
+    if (tokenNotExpired(TOKEN_NAME, token.access_token)) {
+      const decodedToken = decode(token.access_token);
+      username = decodedToken.user_name;
+    }
+    this.isLoading = true;
+    this.sum.generarReporte(username).subscribe( data =>{
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display: none');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = 'suministros.pdf';
+      a.click();
+      this.isLoading = false;
+      return url;
+
+    });
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
 
 }

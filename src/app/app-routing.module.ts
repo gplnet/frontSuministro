@@ -16,6 +16,7 @@ import { SuministroEdicionComponent } from './pages/suministro/suministro-edicio
 import { IngresoComponent } from './pages/ingreso/ingreso.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { UsuarioEdicionComponent } from './pages/usuario/usuario-edicion/usuario-edicion.component';
+import { HomeComponent } from './pages/home/home.component';
 const routes: Routes = [
   
   { path: 'not-403', component: Not403Component },
@@ -51,7 +52,7 @@ const routes: Routes = [
   ], canActivate: [GuardService]},
 
 
-
+  { path: 'home', component: HomeComponent, canActivate: [GuardService]},
   { path: 'egreso', component: EgresoComponent, canActivate: [GuardService]},
   { path: 'ingreso', component: IngresoComponent, canActivate: [GuardService]},
 

@@ -28,31 +28,43 @@
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_ide}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef>
+                            <div class="button-group">
+                                <button class="button" title="Ver Stocks" [disabled]="isLoading" (click)="verStocks()" style="background-color: green;" mat-raised-button color="primary"><mat-icon>assignment</mat-icon>Ver Stocks
+                                    <img *ngIf="isLoading" style="width : 24px" src="assets/img/spinner.gif" />
+                                </button>
+                            </div>
+                        </mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="cantidad">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> CANTIDAD </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_cnt}}</mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="codigo">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_cod}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="color">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> COLOR </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_col}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="modelo">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> MODELO </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_mdl}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="volumen">
                         <mat-header-cell *matHeaderCellDef mat-sort-header> VOLUMEN </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row.sum_vol}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="acciones">
@@ -61,12 +73,12 @@
                             <button mat-button color="primary" [routerLink]="['edicion', row.sum_ide]">Actualizar</button>
                             <button mat-button color="accent" (click)="eliminar(row)">Eliminar</button>
                         </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;">
-
-                    </mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
                 </mat-table>
 
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [length]="cantidad" (page)="mostrarMas($event)"></mat-paginator>

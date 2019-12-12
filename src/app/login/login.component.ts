@@ -49,9 +49,9 @@ export class LoginComponent implements OnInit {
         let rol = decodedToken.authorities[0];
 
         if (rol === 'ROLE_ADMIN') {
-          this.router.navigate(['equipo']);
+          this.router.navigate(['home']);
         } else {
-          this.router.navigate(['equipo']);
+          this.router.navigate(['home']);
         }
       }
     }, (err) => {

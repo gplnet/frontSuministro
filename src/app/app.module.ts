@@ -33,6 +33,7 @@ import { SuministroEgresoService } from './_service/suministro-egreso.service';
 import { SuministroService } from './_service/suministro.service';
 import { UsuarioService } from './_service/usuario.service';
 import { IngresoService } from './_service/ingreso.service';
+import { HomeComponent } from './pages/home/home.component';
 
 
 
@@ -58,6 +59,7 @@ import { IngresoService } from './_service/ingreso.service';
     IngresoComponent,
     UsuarioComponent,
     UsuarioEdicionComponent,
+    HomeComponent,
 
   ],
   imports: [
